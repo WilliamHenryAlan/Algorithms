@@ -22,10 +22,39 @@ Input: target = 11, nums = [1,1,1,1,1,1,1,1]
 Output: 0
 
 */
-
+#include <iostream>
+#include <vector>
 class Solution {
     public:
         int minSubArrayLen(int target,std::vector<int>& nums) {
-            
+            if (nums[0]==target) return 1;
+            int begin=0,end=0;
+            int sum = 0,len = nums.size()+1,ret=len;
+            while (end<nums.size())
+            {
+                sum += nums[end];
+                while (sum>=target)
+                {
+                    len=end-begin+1;
+                    if (len <= ret) ret=len;
+                    sum  -= nums[begin];
+                    begin++;
+                }   
+                end++;
+            }
+            if (len == nums.size()+1) return 0;
+            return ret;
         }
+};
+int main()
+{
+    std::vector<int> nums;
+    nums.push_back(2);
+    nums.push_back(3);
+    nums.push_back(1);
+    nums.push_back(2);
+    nums.push_back(4);
+    nums.push_back(3);
+    Solution t;
+    std::cout << t.minSubArrayLen(7,nums) << std::endl;
 }
