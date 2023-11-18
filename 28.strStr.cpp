@@ -40,7 +40,7 @@ public:
         int s=0,t=0;
         for (;s<slen;s++)
         {
-            while (haystack[s]==needle[t] and needle[t]!= '\0')
+            while (haystack[s]==needle[t] and needle[t]!= '\0') //std::string 是stl封装的 内部还是char* 所以最后也是有'\0'
             {
                 s++;
                 t++;
