@@ -37,24 +37,56 @@ struct ListNode {
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        ListNode* L=new ListNode;
-        L->next=head;
-        ListNode* prev=L;
-        for (;head != nullptr;)
-        {
-            if (head->val == val)
-            {
-                prev->next=head->next;
-                delete head;
-                head=prev->next;
-                continue;
-            }
-            prev=head;
+        if (head == nullptr) return head;
+        ListNode* prev=nullptr,*current = head;
+        while (current != nullptr and current->val == val)  //current != nullptr and current->val == val 两个条件不能调换顺序 
+        {                                                   //不然compiler会报错 因为current如果是空指针 current->val是未定义操作
             head=head->next;
+            delete current;
+            current=head;
         }
-        ListNode* temp=L->next;
-        delete L;
-        return temp;
-        
+        while (current != nullptr)
+        {
+            if (current->val == val)
+            {
+                prev->next=current->next;
+                delete current;
+                current=prev->next;
+            }
+            else
+            {
+                prev=current;
+                current=current->next;
+            }
+               
+        }
+        return head;
     }
 };
+//Version B Dummy head node
+//创建一个虚拟头节点 让prev指针指向虚拟头节点 结束后delete dummy head node 并返回
+
+// class Solution {
+// public:
+//     ListNode* removeElements(ListNode* head, int val) {
+//         ListNode* L=new ListNode;
+//         L->next=head;
+//         ListNode* prev=L;
+//         for (;head != nullptr;)
+//         {
+//             if (head->val == val)
+//             {
+//                 prev->next=head->next;
+//                 delete head;
+//                 head=prev->next;
+//                 continue;
+//             }
+//             prev=head;
+//             head=head->next;
+//         }
+//         ListNode* temp=L->next;
+//         delete L;
+//         return temp;
+        
+//     }
+// };
