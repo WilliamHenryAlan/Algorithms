@@ -1,66 +1,48 @@
-#Learn Markdown
+![DTC](http://storage.360buyimg.com/bq-install/release/dtc_logo.png)
+# DTC - Distributed Table Cache
+[![ubuntu&gcc-4.9](https://github.com/DTC8/DTC/actions/workflows/ubuntu-20.04&gcc-4.9.yml/badge.svg)](https://github.com/DTC8/DTC/actions/workflows/ubuntu-20.04&gcc-4.9.yml)
+## Overview
+DTC is a high performance Distributed Table Cache system designed by JD.com that offering hotspot data cache for databases in order to reduce pressure of database and improve QPS.
 
-####1.# 代表标题 #代表一级标题 ##代表二级标题
+![](http://storage.360buyimg.com/bq-install/release/architecture.png)
 
-####2.段落有两种方式 想要换行spacespace
-1. 两个空格换行
+The DTC system consists of the following components:
+* **Agent** - Provides key consistent hash routing in order to reduce connections and improve performance.
+* **Dtcd** - Provides hot data caching service.
+* **Connector** - Provides connection and communication between cache and persistent storage database such as MYSQL.
 
-2. 隔一行也表示换行 **段间距更大**
-####3.**想要加粗的字两端加两个星号表示加粗**
-1. for example **emphasize**
-####4.一个星号表示斜体
-1. for example *italic*
-####5.安装插件 
-1. command+b～bold加粗  
-2. command+i～italic斜体
-3. 3.+空格表示子标题 enter自动补全标题序号
-   1. table还可以表示为子标题
-
-####6.插入图片感叹号+中括号  
-####7.code
- ```c++
-#include <iostream>
-int main()
-{
-
-}
+## Feature
+* Database Protection
+  - protection for null node, prevent cache breakdown.
+  - provide long-term data caching, and prevent cache penetration.
+  - data source thread available, protect the database with a limited number of connections.
+  - Estimated timeout policy to reduce invalid database requests.
+* Data consistency
+  - write-through policy, ensure cache and database data consistent.
+  - barrier policy to prevent update requests lost while concurrcy.
+* Performance
+  - integrated memroy allocation policy to avoid frequent system calls.
+  - I/O multiplexing to handle concurrcy requests.
+  - multiple data structure models to improve memory performance.
+* Scalability
+  - cache node expands horizontally to enhance cache capacity.
+  - cache node expands vertically, supports slave reading, and solve the bottleneck of hot keys.
+  - provide sharding, supports for persistent storage scalable.
+## Performance
+* DTC can process 90,000 QPS of query requests at single-core cpu & single dtc instance.
+* DTC can provide above 3,000,000 QPS query capability with above 99.9% hit rate and less than 200 μs response time in actual distributed scenarios.
+* Layered Storage is able to provide about 1,000 QPS write capability with above 99.9% per single instance.
+## How to Build
+DTC provides docker images for quick start:
+* Start server docker:<br/>
+```shell
+docker pull dtc8/server:latest
+docker run -i -t --name dtc-server -p 127.0.0.1:20015:20015 dtc8/server:latest
 ```
+Depending on 3rd-party sql parsing engine [hsql](https://github.com/DTC8/sql-parser) .
+For more compile information, click [Building](docs/building.md).<br/>
+Trying a demo, visit [QuickStart](docs/quickstart.md).
 
----
-####8.List
-* 有序列表
-* 无序列表
-  + 用符号+
-  - 或者符号-都可以
-  ---
-  这个是横线
-####9.插入公式
-   1. 用两个符号  
-   $$
-   \lim_{x \to \infty}\frac{sin(x)}{x}=1
-   $$
-####10.脚注
-####11.table[^tips]
-|name|id|address|
-|:---|---:|:---:|
-|左对齐 |右对齐|居中对齐|
-
-[^tips]:要用英文的半角符号 不然表格不会被渲染 脚注会自动生成横线
-
-####12.link
-1. 链接[chatai](https://chat18.aichatos.xyz/#/chat/1699715165159 "鼠标悬停会产生提示")
-2. 引用链接 适合需要大量链接网址的情况 [chatAi][id]
-
-[id]:www.baidu.com
-
-####13.Insert image
-####14.go to the [top](#Learn-Markdown)
-
-[返回顶部](#Learn-Markdown)
-
-<u>underline</u> 
-==highlight==
-`code block`
-H~2~O
-X^2^
-
+## License
+JD.com © Copyright 2022 [JD.com](https://ir.jd.com/), Inc.<br/>
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0). Visit [LICENSE](./LICENSE) for more details.

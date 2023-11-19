@@ -47,26 +47,26 @@ public:
     void addAtTail(int val) {
         LinkedNode* temp = new LinkedNode(val);
         LinkedNode* traversal = _dummyHead;
-        // while (traversal->next != nullptr)
-        // {
-        //     traversal = traversal->next;
-        // }
-        for (int i = 0; i < _size-1; i++)
+        while (traversal->next != nullptr)
         {
             traversal = traversal->next;
         }
-        temp->next = nullptr;
+        // for (int i = 0; i < _size-1; i++)
+        // {
+        //     traversal = traversal->next;
+        // }
         traversal->next = temp;
         _size++;
     }
     
     void addAtIndex(int index, int val) {
+        if (index < 0 or index > _size) return;
         LinkedNode* traversal = _dummyHead;
         // while (traversal->next != nullptr)
         // {
         //     traversal = traversal->next;
         // }
-        for (;index-1 > 0;index--)
+        for (;index > 0;index--)
         {
             traversal = traversal->next;
         }
@@ -79,7 +79,7 @@ public:
     void deleteAtIndex(int index) {
         if (index < 0 or index > _size-1) return;
         LinkedNode* traversal = _dummyHead;
-        for (;index-1 > 0;index--)
+        for (;index > 0;index--)
         {
             traversal = traversal->next;
         }
@@ -88,12 +88,24 @@ public:
         delete temp;
         _size--;
     }
+    void print() const
+    {
+        LinkedNode* temp = _dummyHead->next;
+        std::cout << "LinkedList is ";
+        for (int i = 0;i < _size;i++)
+        {
+            std::cout << temp->val << " ";
+        }
+        std::cout << std::endl;
+    }
 };
 int main()
 {
     MyLinkedList *head = new MyLinkedList();
-     head->addAtHead(1);
+    head->addAtIndex(0,1);
+    head->print();
     head->deleteAtIndex(0);
+    head->print();
 }
 /**
  * Your MyLinkedList object will be instantiated and called as such:
