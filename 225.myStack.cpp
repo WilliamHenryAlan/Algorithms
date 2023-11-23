@@ -20,7 +20,7 @@
 class MyStack {
 public:
     MyStack() {
-
+        
     }
     
     void push(int x) {
