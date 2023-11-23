@@ -16,35 +16,55 @@
     你所使用的语言也许不支持队列。 你可以使用 list （列表）或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。
 
 */
-
+#include <iostream>
+#include <queue>
 class MyStack {
 public:
+    std::queue<int> InQueue,OutQueue;
     MyStack() {
 
     }
     
     void push(int x) {
-
+        InQueue.push(x);
     }
     
     int pop() {
-
+        int len = InQueue.size()-1;
+        for (int i = 0;i < len;i++) {
+            OutQueue.push(InQueue.front());
+            InQueue.pop();
+        }
+        int ret = InQueue.front();
+        InQueue.pop();
+        InQueue = OutQueue;
+        while (!OutQueue.empty()) {
+            OutQueue.pop();
+        }
+        // while (!OutQueue.empty()) {
+        //     InQueue.push(OutQueue.front());
+        //     OutQueue.pop();
+        // }
+        return ret;
     }
+
     
     int top() {
-
+        int temp = pop();
+        push(temp);
+        return temp;
+        //return InQueue.back();
     }
     
     bool empty() {
-
+        return InQueue.empty();
     }
 };
+int main() {
+    MyStack S;
+    S.push(1);
+    S.push(2);
+    S.push(3);
+    std::cout << S.pop() << std::endl;
+}
 
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack* obj = new MyStack();
- * obj->push(x);
- * int param_2 = obj->pop();
- * int param_3 = obj->top();
- * bool param_4 = obj->empty();
- */
