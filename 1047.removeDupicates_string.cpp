@@ -25,22 +25,13 @@ solution:
 class Solution {
 public:
     std::string removeDuplicates(std::string s) {
-        std::stack<char> st;
-        for (char c:s) {
-            if (!st.empty()) {
-                if (st.top() != c) {
-                    st.push(c);
-                }else {
-                    st.pop();
-                }
-            }else {
-                st.push(c);
-            }
-        }
         std::string ret;
-        while (!st.empty()) {
-            ret.insert(0,1,st.top());
-            st.pop();
+        for (char c:s) {
+            if (ret.empty() or ret.back() != c) {
+                ret.push_back(c);
+            }else {
+                ret.pop_back();
+            }
         }
         return ret;
     }
