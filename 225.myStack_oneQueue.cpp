@@ -12,28 +12,46 @@
     你所使用的语言也许不支持队列。 你可以使用 list （列表）或者 deque（双端队列）来模拟一个队列 , 只要是标准的队列操作即可。
 
 */
+
+/*
+solution:
+用一个队列模仿栈
+1.用一个队列模仿其实更简单 pop出的元素暂存再压回queue
+2.主要实现pop和top
+懒得写了
+*/
 #include <iostream>
 #include <queue>
 class MyStack {
 public:
+    std::queue<int> q;
     MyStack() {
 
     }
     
     void push(int x) {
-
+        q.push(x);
     }
     
     int pop() {
-
+        for (int i = 0;i < q.size()-1;i++) {
+            int temp = q.front();
+            q.pop();
+            q.push(temp);
+        }
+        int temp = q.front();
+        q.pop();
+        return temp;
     }
     
     int top() {
-
+        int temp = pop();
+        push(temp);
+        return temp;
     }
     
     bool empty() {
-
+        return q.empty();
     }
 };
 
