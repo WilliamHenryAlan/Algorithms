@@ -10,8 +10,6 @@
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 /*
-637
-429
 515
 116
 117
@@ -33,6 +31,7 @@ public:
             while (size--) {    //第二个while循环处理压入队列的Node
                 //TreeNode* temp = q.front();   //因为循环中大量call q.front() 可以保存队头元素减少开销
                 vi.push_back(q.front()->val);   //保存一层的value
+                //压入下一层的Node
                 if (q.front()->left != nullptr) {   //左右孩子不为空 分别压入
                     q.push(q.front()->left);
                 }
