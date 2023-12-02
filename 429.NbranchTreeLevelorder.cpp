@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 // Definition for a Node.
 class Node {
 public:
@@ -38,6 +39,25 @@ public:
 class Solution {
 public:
     std::vector<std::vector<int>> levelOrder(Node* root) {
-        
+        std::vector<std::vector<int>> ret;
+        std::queue<Node*> q;
+        if (root == nullptr) {
+            return ret;
+        }
+        q.push(root);
+        while (!q.empty()) {
+            int size = q.size();
+            std::vector<int> vi;
+            while (size--) {
+                Node* temp = q.front();
+                q.pop();
+                vi.push_back(temp->val);
+                for (Node*& i:temp->children) {
+                    q.push(i);
+                }
+            }
+            ret.push_back(vi);
+        }
+        return ret;
     }
 };
