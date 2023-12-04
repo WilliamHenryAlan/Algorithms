@@ -37,12 +37,44 @@
 = 17 + 5
 = 22
 */
+
+/*
+solution：
+手动模拟：后缀表达式只会遇到两种情况 1.遇到数字 2.遇到操作符
+遇到数字就压入栈中
+遇到操作符 要弹出两个操作数 并执行运算 再将结果push
+这种类似 弹出消除的想到栈stack
+*/
+
 #include <iostream>
 #include <vector>
+#include <stack>
 class Solution {
 public:
-    int evalRPN(std::vector<std::string>& tokens) {
-        
 
+    int evalRPN(std::vector<std::string>& tokens) {
+        std::stack<std::string> st;
+        for (std::string& s:tokens) {
+          if (s != "+" and s != "-" and s != "*" and s != "/") {
+            st.push(s);
+          }else {
+            int right = std::stoi(st.top());
+            st.pop();
+            int left = std::stoi(st.top());
+            st.pop();
+            int result = 0;
+            if (s == "*") {
+              result = left * right;
+            }else if(s == "/") {
+              result = left / right;
+            }else if (s == "+") {
+              result = left + right;
+            }else if (s == "-") {
+              result = left - right;
+            }
+            st.push(std::to_string(result));
+          }
+        }
+        return std::stoi(st.top());
     }
 };
