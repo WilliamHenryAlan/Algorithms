@@ -10,10 +10,15 @@
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 /*
-116
-117
-104
-111
+solution:
+层序遍历属于BFS(Board first search)
+1.先判断root是不是nullptr 如果是 return root
+2.然后 因为root != nullptr 压栈
+3.第一个while循环 把要处理的Node压栈
+4.因为queue的size在不断变化 所以应该记录queue的size
+5.第二个while循环处理第一个while循环压入栈中的Node condition为size ！= 0
+6.循环中处理Node 把value存入vector 并且把当前Node的左右孩子入队
+
 */
 class Solution {
 public:
