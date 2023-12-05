@@ -17,6 +17,7 @@
 
 /*
 solution:
+高度和深度的概念
 
 */
 #include<iostream>
