@@ -1,3 +1,4 @@
+none
 #include<iostream>
 #include <vector>
 using namespace std;
@@ -12,10 +13,7 @@ using namespace std;
 };
 class Solution {
 public:
-
- vector<int> inorderTraversal(TreeNode* root) {
-      vector<int> vi;
-
-      return vi;
+    int minDepth(TreeNode* root) {
+        
     }
 };
