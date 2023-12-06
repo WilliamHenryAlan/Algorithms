@@ -69,6 +69,7 @@
         "unordered_set": "cpp",
         "__tree": "cpp",
         "charconv": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "queue": "cpp"
     }
 }
