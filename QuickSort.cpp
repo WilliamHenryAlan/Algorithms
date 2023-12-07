@@ -195,6 +195,17 @@ void print(const std::vector<int>& vi) {
 }
 
  /*
- while (low < high and vi[high] >= pivot) --high;     是vi[high] >= pivot 不是high >= pivot
+ prompt:
+ 1.while (low < high and vi[high] >= pivot) --high;     是vi[high] >= pivot 不是high >= pivot
 
+2.优化思路 选择中间值作为枢轴
+int pivot;
+int mid = vi[low+high];
+if (vi[low] >= vi[mid] && vi[high] <= vi[mid]) {
+    pivot = vi[mid];
+}else if (vi[low] <= vi[mid] && vi[low] >= vi[high]) {
+    pivot = vi[low];
+}else {
+    pivot = vi[high];
+}
  */
