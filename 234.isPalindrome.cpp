@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 struct ListNode {
     int val;
     ListNode* next;
@@ -22,9 +23,28 @@ struct ListNode {
 
 */
 
+/*
+用stack进行反转
+*/
+
+
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        
+        std::stack<int> st;
+        ListNode* temp = head;
+        while (temp != nullptr) {
+            st.push(temp->val);
+            temp = temp->next;
+        }
+        while (head != nullptr) {
+            if (st.top() == head->val) {
+                st.pop();
+            }else {
+                return false;
+            }
+            head = head->next;
+        }
+        return true;
     }
 };

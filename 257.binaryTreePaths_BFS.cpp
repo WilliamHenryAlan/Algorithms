@@ -23,7 +23,6 @@ using namespace std;
 };
 class Solution {
 public:
-
     vector<string> binaryTreePaths(TreeNode* root) {
         std::vector<std::string> ret;
         return ret;

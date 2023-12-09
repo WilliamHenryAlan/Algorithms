@@ -1,8 +1,7 @@
 #include<iostream>
 #include <vector>
-#include <stack>
 using namespace std;
-
+//Definition for a binary tree node.
   struct TreeNode {
       int val;
       TreeNode *left;
@@ -13,7 +12,7 @@ using namespace std;
 };
 class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode* root) {     //1.根据递归的实现 模拟栈的过程
+    int sumOfLeftLeaves(TreeNode* root) {
         
     }
 };
