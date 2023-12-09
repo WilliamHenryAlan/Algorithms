@@ -5,7 +5,7 @@ using namespace std;
 //1.确定递归函数的参数和返回值
 //2.确认递归终止条件
 //3.确认单层递归逻辑
-  struct TreeNode {
+struct TreeNode {
       int val;
       TreeNode *left;
       TreeNode *right;
