@@ -45,13 +45,59 @@
 
 */
 
+/*
+创建字符串数组存储每个char对应的morse密码
+因为words.lengh在100及以内 所以可以用100大小的数组存储
+映射每个单词的密码在unordered_set中去重
+
+prompt:
+1.c++静态成员必须完成类外初始化
+*/
+
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_set>
 using namespace std;
+const static std::string morse[] =  {
+    ".-", "-...", "-.-.", "-..", ".", "..-.", "--.",
+        "....", "..", ".---", "-.-", ".-..", "--", "-.",
+        "---", ".--.", "--.-", ".-.", "...", "-", "..-",
+        "...-", ".--", "-..-", "-.--", "--.."
+};
 class Solution {
 public:
     int uniqueMorseRepresentations(vector<string>& words) {
-        
+        std::unordered_set<std::string> unset;
+        int len = words.size();
+        for (std::string &word:words) {
+            std::string str;
+            for (char& c:word) {
+                str += morse[c - 'a'];
+            }
+            unset.emplace(str);
+        }
+        return unset.size();
     }
 };
+
+// //version A
+// class Solution {
+// public:
+//     int uniqueMorseRepresentations(vector<string>& words) {
+//         std::vector<std::string> morse{".-", "-...", "-.-.", "-..", ".", "..-.", "--.",     //类外声明了std::string[]静态数组
+//          "....", "..", ".---", "-.-", ".-..", "--", "-.",
+//          "---", ".--.", "--.-", ".-.", "...", "-", "..-",
+//          "...-", ".--", "-..-", "-.--", "--.."};
+//         std::unordered_set<std::string> unset;
+//         int len = words.size();
+//         for (int i = 0;i < len;i++) {
+//             std::string str;
+//             for (char& c:words[i]) {
+//                 str += morse[c - 'a'];
+//             }
+//             unset.insert(str);      //用了emplace方法 在类型特别大的时候 能高效插入
+//         }
+//         return unset.size();
+//     }
+// };

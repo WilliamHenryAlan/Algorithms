@@ -1,16 +1,14 @@
-none
-
 /*
-给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。
+给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
 
-叶子节点 是指没有子节点的节点。
+假设二叉树中至少有一个节点。
 */
 
 /*
 solution:
 
-*/
 
+*/
 #include<iostream>
 #include <vector>
 using namespace std;
@@ -25,8 +23,7 @@ using namespace std;
 };
 class Solution {
 public:
-    vector<string> binaryTreePaths(TreeNode* root) {
-        std::vector<std::string> ret;
-        return ret;
+    int findBottomLeftValue(TreeNode* root) {
+        
     }
 };
