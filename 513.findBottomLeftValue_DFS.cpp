@@ -1,3 +1,14 @@
+/*
+给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
+
+假设二叉树中至少有一个节点。
+*/
+
+/*
+solution:
+
+
+*/
 #include<iostream>
 #include <vector>
 using namespace std;
@@ -12,10 +23,7 @@ using namespace std;
 };
 class Solution {
 public:
-
- vector<int> inorderTraversal(TreeNode* root) {
-      vector<int> vi;
-
-      return vi;
+    int findBottomLeftValue(TreeNode* root) {
+        
     }
 };

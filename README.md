@@ -83,3 +83,9 @@ C++标准库是有多个版本的，有三个个最为普遍的STL版本
 
 C++中map、set、multimap，multiset的底层实现都是平衡二叉搜索树，所以map、set的增删操作时间时间复杂度是O(logn)，unordered_map、unordered_set，unordered_map、unordered_set底层实现是哈希表。
 
+---
+####二叉树的遍历
+1. preorder
+2. inorder
+3. postorder
+4. levelorder
