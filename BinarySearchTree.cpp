@@ -72,6 +72,14 @@ void inorder(TNode* root) {
     std::cout << root->val << " ";
     inorder(root->right);
 }
+/*
+删除节点分情况：
+1.待删除node为leaf node 直接删除
+2.待删除node只有左子树或者右子树 左子树或者右子树替代被删除节点
+3.待删除node有左右子树 有两种solution
+                                1.找到右子树中最小的node替代为待删除node（也就是中序遍历的第一个node 中序遍历为增序列）再参照1，2
+                                2.找到左子树中最大的node替代为待删除node
+*/
 void deleteTNode(int x) {
     
 }
