@@ -37,7 +37,6 @@ int main() {
                 2.RR
                 3.LR
                 4.RL
-                
 */
 AVLNode* insertAVLNode(int x) {
 
