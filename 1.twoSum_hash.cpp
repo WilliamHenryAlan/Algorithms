@@ -4,9 +4,10 @@ solution：
 因为是寻找匹配元素 寻找 target - 每一个元素的另一元素
 所以想到hashtable 并且要return下标 所以要用std::unordered_map 底层用哈希表实现 无序 不可以重复
 
-1.把vector映射到map中
-2.遍历整个vector 在map中找是否存在匹配值
-3.如果找到了就return
+1.创建一个empty map
+2.遍历整个vector 在map中找是否存在匹配值：
+                                    如果不匹配 就把元素插入到map中
+                                    如果匹配 就return
 */
 #include <iostream>
 #include <vector>
@@ -22,7 +23,7 @@ public:
             if (iter == nums_map.end()) {
                 nums_map.insert(std::pair<int,int>(nums[i],i));
             }else {
-                return {i,iter->second};
+                return {i,iter->second};    //implicit 可以写成explicit return std::vector<int>{iter->second,i};
             }
         }
         return {};
