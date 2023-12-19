@@ -29,3 +29,8 @@ public:
         return {};
     }
 };
+/*
+summary：
+1.c++的哈希表用了动态数组的方式和哈希函数组成
+2.插入可以用pair函数 也可以写成 nums_map.insert({nums[i],i}); 用初始化列表的方式
+*/

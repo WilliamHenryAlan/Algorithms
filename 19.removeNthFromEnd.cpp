@@ -1,22 +1,70 @@
 /*
-Given the head of a linked list, remove the nth node from the end of the list and return its head.
+2023.12.18
 
- 
+issue：
+删除单链表中倒数第n个元素
 
-Example 1:
+solution：
+因为单链表不能逆向寻找 所以删除倒数节点用双指针的方式
+1.slow指针指向head 
+2.fast指针向后遍历n次 如果遍历到nullptr 说明n非法 则return
+3.这样slow和fast之间夹着的就是n
+4.保持fast和slow的距离 同时向后后遍历
+5.知道fast指向nullptr 说明slow指向了倒数第n个结点
+6.因为slow指向了倒数第n个结点 如果直接删除会断开上一结点的链接
+因此 单链表的删除操作应该寻找上一结点 所以2步骤应该再多移动一次
+但是这样又回出现问题 当链表只有两个元素 要删除倒数第一个元素时
+fast会向后遍历两次 会指向nullptr 根据判断条件满足 会判断n值非法 所以return 但是实际上倒数第一个元素是存在的
+所以更为好的方式是 在4步骤 fast->next == nullptr情况下 slow停止 fast单独再向后遍历一个node
+7.考虑到删除第一个node的情况 会创建一个dummy结点 方便删除操作
 
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
+*/
+#include <iostream>
+struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode() : val(0), next(nullptr) {}
+      ListNode(int x) : val(x), next(nullptr) {}
+      ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        //create dummy node
+        ListNode* dummy = new ListNode;
+        dummy->next = head;
+        head = dummy;
+        //move fast
+        ListNode* fast = head,* slow = head;
+        while (n-- && fast != nullptr) {
+            fast = fast->next;
+        }
+        //n值非法
+        if (fast == nullptr) {
+            head = dummy->next;
+            delete dummy;
+            return head;
+        }
+        //保持fast和slow的间距向后遍历 注意遍历条件
+        while (fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        //fast = fast->next;    //这条代码按步骤应该写 但是写不写不影响结果
 
-Example 2:
+        //删除node释放内存
+        ListNode* release = slow->next;
+        slow->next = release->next;
+        delete release;
 
-Input: head = [1], n = 1
-Output: []
+        //删除dummy node 释放内存
+        head = dummy->next;
+        delete dummy;
+        return head;
+    }
+};
 
-Example 3:
-
-Input: head = [1,2], n = 1
-Output: [1]
+/*
 
 */
 #include <iostream>
@@ -62,6 +110,7 @@ public:
         }
     }
 };
+//test program
 ListNode* buildList(std::vector<int>& nums) {  
     if (nums.empty()) {
         return nullptr;
