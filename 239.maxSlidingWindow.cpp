@@ -1,36 +1,57 @@
 /*
-给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
+2023.12.20
+*/
 
-返回 滑动窗口中的最大值 。
+/*
+solution:
+本题暴力破解会超时
+本题不能使用优先队列 因为pop操作始终pop优先级最高的元素
+而应该使用单调队列 单调队列解决滑动窗口的问题尤其适用
 
- 
-
-示例 1：
-
-输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
-输出：[3,3,5,5,6,7]
-解释：
-滑动窗口的位置                最大值
----------------               -----
-[1  3  -1] -3  5  3  6  7       3
- 1 [3  -1  -3] 5  3  6  7       3
- 1  3 [-1  -3  5] 3  6  7       5
- 1  3  -1 [-3  5  3] 6  7       5
- 1  3  -1  -3 [5  3  6] 7       6
- 1  3  -1  -3  5 [3  6  7]      7
-
-示例 2：
-
-输入：nums = [1], k = 1
-输出：[1]
+1.
 
 */
 #include <iostream>
 #include <vector>
+#include <deque>
+
 using namespace std;
 class Solution {
+private:
+    class MonotonicQueue {
+        std::deque<int> deq;
+    public:
+        void pop(int val) {
+            if (!deq.empty() && deq.front() == val) {
+                deq.pop_front();
+            }
+        }
+        void push(int val) {
+            while (!deq.empty() && deq.back() <= val) {
+                deq.pop_back();
+            }
+            deq.push_back(val);
+        }
+        int top() {
+            return deq.front();
+        }
+    };
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        
+        std::vector<int> ret;
+        int left = 0;
+        int right = k;
+        int length = nums.size();
+        MonotonicQueue Que;
+        for (int i = 0;i < k;i++) {
+            Que.push(nums[i]);
+        }
+        ret.push_back(Que.top());
+        for (;right < length;right++,left++) {
+            Que.push(nums[right]);
+            Que.pop(nums[left]);
+            ret.push_back(Que.top());
+        }
+        return ret;
     }
 };

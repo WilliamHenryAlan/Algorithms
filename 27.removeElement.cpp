@@ -2,6 +2,33 @@
 2023.12.20
 */
 
+/*
+issue:删除数组中的元素
+solution：
+设置快慢指针
+慢指针之前的元素是更新后的数组 慢指针所在的是待更新区域 快指针寻找更新元素
+
+1.设置slow fast指针指向index 0
+2.当fast指针从头开始寻找 如果不是待删除元素 就赋值给slow指针 然后继续迭代
+                        如果是待删除元素 slow指针不动 指向待更新区域 迭代fast
+3.loop每次迭代fast 当不是待删除元素时才迭代slow
+4.slow指针从0开始计数更新的数组 就是新数组的长度
+*/
+#include <iostream>
+#include <vector>
+class Solution {
+public:
+    int removeElement(std::vector<int>& nums, int val) {
+        int len = nums.size();
+        int slow = 0, fast = 0;
+        for (;fast < len;fast++) {
+            if (nums[fast] != val) {
+                nums[slow++] = nums[fast];
+            }
+        }
+        return slow;
+    }
+};
 
 /*
 Solution:
