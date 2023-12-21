@@ -2,6 +2,7 @@
   "C_Cpp_Runner.msvcBatchPath": "",
   "files.associations": {
     "vector": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "iostream": "cpp"
   }
 }
