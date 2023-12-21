@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-/*
-example：abc
-前缀：包含首字母不包含尾字母的子串 a，ab
-后缀：包含尾字母不包含首字母的子串 c，bc
-
-*/
-=======
 /*
 KMP是对BuruteForceMatching的优化
 KMP算法的思想：
@@ -109,4 +101,3 @@ void getNext_better(const std::string& pattern, std::vector<int>& next) {
         }
     }
 }
->>>>>>> 6c5e81194f4125fdad51ca233ccd425cc5cf7020

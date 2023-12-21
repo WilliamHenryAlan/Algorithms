@@ -1,3 +1,16 @@
+/*
+issue:求第一个出现的子串下标
+solution：
+字符串匹配问题 想到用KMP算法 主串指针不用进行回溯
+*/
+#include <iostream>
+#include <string>
+class Solution {
+public:
+    int strStr(std::string haystack, std::string needle) {
+        
+    }
+};
 
 /*
 Solution:
