@@ -15,11 +15,11 @@ public:
 void inorder(TreeNode* root,vector<int>& vi)
 {
     if (root != nullptr)
-            {
-                inorder(root->left,vi);
-                vi.push_back(root->val);
-                inorder(root->right,vi);
-            }
+    {
+        inorder(root->left,vi);
+        vi.push_back(root->val);
+        inorder(root->right,vi);
+    }
 }
  vector<int> inorderTraversal(TreeNode* root) {
             vector<int> vi;
