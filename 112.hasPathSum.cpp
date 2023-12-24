@@ -14,7 +14,7 @@ class Solution {
 public:
     bool backTracking(TreeNode* root,int targetSum) {
         if (root->left == nullptr && root->right == nullptr) {
-            return ;
+            return targetSum == 0;
         }
 
     }
