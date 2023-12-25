@@ -1,6 +1,16 @@
 /**
  * 归并排序思想：
  * 核心思想为：把数组中两个有序的序列进行归并
+ * 1.拆分子表
+ * 2.归并子表
+ * 
+ * 归并排序实际上就是后序遍历
+ * 
+ * 时间复杂度O(nlog(n))   
+ * 根据两路归并树推出 无论是逆序还是其他 时间复杂度不变 对比quickSort 快排最坏可能达到O(n^2)
+ * 
+ * 空间复杂度O(n) 主要来自辅助数组 tempNums
+ * 稳定算法
 */
 #include <iostream>
 #include <vector>
@@ -53,7 +63,7 @@ int main() {
     array.push_back(39);
     array.push_back(29);
     array.push_back(19);
-
+    for (int i = 100;i >= 0;i--) array.emplace_back(i);
     print(array);
 
     auto start = std::chrono::high_resolution_clock::now();     //测试程序运行时间begin

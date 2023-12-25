@@ -1,3 +1,31 @@
+/**
+ * 2023.12.25
+ * review quickSort
+ * quickSort == binary Tree preorder
+*/
+// int partition(std::vector<int>& vi,int low,int high) {
+//     int pivot = vi[low];    //暂存枢轴
+//     while (low < high) {
+//         while (vi[high] >= pivot && low < high) {   //要加low < high 否则会segmentation fault
+//             high--;
+//         }
+//         vi[low] = vi[high];
+//         while (vi[low] <= pivot && low < high) {
+//             low++;
+//         }
+//         vi[high] = vi[low];
+//     }
+//     vi[high] = pivot; //最后一定不能忘了把枢轴元素放回去
+//     return high;    //循环终止条件一定是low == high 所以return low or high都是一样的
+// }
+// void quickSort(std::vector<int>& vi,int low,int high) {   
+//     if (low < high) {
+//         int pivot = partition(vi,low,high);     //quickSort实质就是前序遍历 处理中
+//         //quickSort(vi,pivot+1,high);   //也可以放这里 先处理右子树
+//         quickSort(vi,low,pivot-1);      //左子树
+//         quickSort(vi,pivot+1,high);     //右子树
+//     }
+// }
 /*
         /冒泡排序
 交换排序
@@ -8,7 +36,7 @@
 2.升序为例作划分 low和high指针指向头尾 把表划分为两个部分 枢轴左边的要比枢轴小 右边的要比枢轴大
 
 总结：
-快速排序划分实际上可以生成一个二叉树
+快速排序划分实际上可以生成一个二叉树 是preorder
 
 时间复杂度O(n*递归层数)
 best:O(nlog2n)
@@ -71,6 +99,7 @@ int main() {
     array.push_back(39);
     array.push_back(29);
     array.push_back(19);
+    for (int i = 100;i >= 0;i--) array.emplace_back(i);
 
     print(array);
 
@@ -227,3 +256,4 @@ if (vi[low] >= vi[mid] && vi[high] <= vi[mid]) {
 }
 
  */
+
