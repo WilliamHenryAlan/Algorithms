@@ -13,9 +13,12 @@ struct TreeNode {
 class Solution {
 public:
     bool backTracking(TreeNode* root,int targetSum) {
-        if (root->left == nullptr && root->right == nullptr) {
-            return targetSum == 0;
+        if (root->left == nullptr && root->right == nullptr && targetSum == 0) {
+            return true;
         }
+        if (backTracking(root->left,targetSum) == true) {
+            return true;
+        }else if ()
 
     }
     bool hasPathSum(TreeNode* root, int targetSum) {

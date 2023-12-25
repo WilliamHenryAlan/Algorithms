@@ -27,77 +27,36 @@ example：abc
 #include <iostream>
 #include <string>
 #include <vector>
-void getNext(const std::string& pattern, std::vector<int>& next);
-void getNext_better(const std::string& pattern, std::vector<int>& next);
-int KMP(std::string& mainString,std::string& subString,std::vector<int>& next);
-int main() {
-    std::string mainString = "mississippi";
-    std::string subString = "issi";
-    std::vector<int> next(subString.size(),0);
-    getNext(subString,next);
-    int ret = KMP(mainString,subString,next);
-    std::cout << "return index = " << ret << std::endl;
+void getNext(std::string& subString,std::vector<int>& next) {
+
 }
-int KMP(std::string& mainString,std::string& subString,std::vector<int>& next) {
+int KMP(const std::string& mainString,const std::string& subString,std::vector<int>& next) {
+    int mainlen = mainString.length();
+    int sublen = subString.size();
     int i = 0,j = 0;
-    while (i < mainString.size() and j < subString.size()) {
-        if (mainString[i] == subString[j]) {
-            i++;
+    有错的
+    while (i < mainlen && j < sublen) {
+        if (mainString[i] == subString[j]) {    //继续匹配后序字符
             j++;
         }else {
-            if (j == 0) {
-                i++;
-            }else {
-                j = next[j];
-            }
+            j = next[j];        //匹配失败 模式串回溯
         }
+        i++;
     }
-    if (j == subString.size()) {
+    if (j == sublen) {
         return i-j;
     }else {
         return -1;
     }
 }
-void getNext(const std::string& pattern, std::vector<int>& next) {
-    next[0] = -1;
-    int i = pattern.size()-1;
-    int j = 0;
-    while (j < pattern.size()) {
-        if ()
-    }
 
+int main() {
+    std::string mainString = "mississippi";
+    std::string subString = "issi";
+    std::vector<int> next;
+    getNext(subString,next);    //Create next array
 
-
-    next[0] = -1;                   // 初始化next数组第一个元素为-1
-    int k = -1;                     // k记录当前匹配的前缀的最长公共前后缀的长度
-    int j = 0;                      // j是当前匹配的后缀的位置
-    while (j < pattern.size() - 1) {             // 循环计算next数组
-        if (k == -1 || pattern[j] == pattern[k]) {      // 如果当前字符匹配成功
-            ++k;                    // 前缀的最长公共前后缀长度加一
-            ++j;                    // 匹配的后缀位置加一
-            next[j] = k;            // 将next[j]赋值为k
-        } else {
-            k = next[k];            // 如果匹配失败，更新k为next[k]
-        }
-    }
+    int ret = KMP(mainString,subString,next);
+    std::cout << "return index = " << ret << std::endl;
 }
 
-void getNext_better(const std::string& pattern, std::vector<int>& next) {
-    int n = pattern.length();
-    int k = -1;                     // k记录当前匹配的前缀的最长公共前后缀的长度
-    int j = 0;                      // j是当前匹配的后缀的位置
-    next[0] = -1;                   // 初始化next数组第一个元素为-1
-    while (j < n - 1) {             // 循环计算next数组
-        if (k == -1 || pattern[j] == pattern[k]) {      // 如果当前字符匹配成功
-            ++j;                    // 后缀位置加一
-            ++k;                    // 前缀的最长公共前后缀长度加一
-            if (pattern[j] != pattern[k]) {             // 如果下一位不相等
-                next[j] = k;                            // 将next[j]赋值为k
-            } else {
-                next[j] = next[k];                      // 如果下一位相等，将next[j]赋值为next[k]
-            }
-        } else {
-            k = next[k];            // 如果匹配失败，更新k为next[k]
-        }
-    }
-}
