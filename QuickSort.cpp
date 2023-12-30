@@ -1,31 +1,4 @@
-/**
- * 2023.12.25
- * review quickSort
- * quickSort == binary Tree preorder
-*/
-// int partition(std::vector<int>& vi,int low,int high) {
-//     int pivot = vi[low];    //暂存枢轴
-//     while (low < high) {
-//         while (vi[high] >= pivot && low < high) {   //要加low < high 否则会segmentation fault
-//             high--;
-//         }
-//         vi[low] = vi[high];
-//         while (vi[low] <= pivot && low < high) {
-//             low++;
-//         }
-//         vi[high] = vi[low];
-//     }
-//     vi[high] = pivot; //最后一定不能忘了把枢轴元素放回去
-//     return high;    //循环终止条件一定是low == high 所以return low or high都是一样的
-// }
-// void quickSort(std::vector<int>& vi,int low,int high) {   
-//     if (low < high) {
-//         int pivot = partition(vi,low,high);     //quickSort实质就是前序遍历 处理中
-//         //quickSort(vi,pivot+1,high);   //也可以放这里 先处理右子树
-//         quickSort(vi,low,pivot-1);      //左子树
-//         quickSort(vi,pivot+1,high);     //右子树
-//     }
-// }
+
 /*
         /冒泡排序
 交换排序
@@ -52,6 +25,7 @@ eg：随机选择枢轴元素
     每次取首中尾三个元素比较 中间值为枢轴值
 
 快速排序为不稳定算法
+
 
 */
 
@@ -109,7 +83,8 @@ int main() {
     //###############################################################################
     auto stop = std::chrono::high_resolution_clock::now();      //测试程序运行时间end
     //Print result
-    std::cout << "程序运行时间：" << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " 微秒" << std::endl;
+    std::cout << "程序运行时间：" << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() 
+                << " 微秒" << std::endl;
     std::cout << "quick sort:" << std::endl;
     print(array);
 }
@@ -257,3 +232,170 @@ if (vi[low] >= vi[mid] && vi[high] <= vi[mid]) {
 
  */
 
+// /**
+//  * 2023.12.25
+//  * review quickSort
+//  * quickSort == binary Tree preorder
+// */
+// int partition(std::vector<int>& vi,int low,int high) {
+//     int pivot = vi[low];    //暂存枢轴
+//     while (low < high) {
+//         while (vi[high] >= pivot && low < high) {   //要加low < high 否则会segmentation fault
+//             high--;
+//         }
+//         vi[low] = vi[high];
+//         while (vi[low] <= pivot && low < high) {
+//             low++;
+//         }
+//         vi[high] = vi[low];
+//     }
+//     vi[high] = pivot; //最后一定不能忘了把枢轴元素放回去
+//     return high;    //循环终止条件一定是low == high 所以return low or high都是一样的
+// }
+// void quickSort(std::vector<int>& vi,int low,int high) {   
+//     if (low < high) {
+//         int pivot = partition(vi,low,high);     //quickSort实质就是前序遍历 处理中
+//         //quickSort(vi,pivot+1,high);   //也可以放这里 先处理右子树
+//         quickSort(vi,low,pivot-1);      //左子树
+//         quickSort(vi,pivot+1,high);     //右子树
+//     }
+// }
+
+// //chatGPT
+// #include <iostream>
+// #include <cstdlib>
+
+// // 交换两个元素的值
+// void swap(void* a, void* b, size_t size) {
+//     char* p = static_cast<char*>(a);
+//     char* q = static_cast<char*>(b);
+//     while (size--) {
+//         char tmp = *p;
+//         *p++ = *q;
+//         *q++ = tmp;
+//     }
+// }
+
+// // 分区函数，将小于等于基准值的元素放在左侧，大于基准值的元素放在右侧
+// int partition(void* arr, int low, int high, size_t size, int (*compare)(const void*, const void*)) {
+//     char* pivot = static_cast<char*>(arr) + high * size;
+//     int i = low - 1;
+
+//     for (int j = low; j <= high - 1; j++) {
+//         char* current = static_cast<char*>(arr) + j * size;
+//         if (compare(current, pivot) <= 0) {
+//             i++;
+//             swap(static_cast<char*>(arr) + i * size, current, size);
+//         }
+//     }
+
+//     swap(static_cast<char*>(arr) + (i + 1) * size, pivot, size);
+//     return i + 1;
+// }
+
+// // 快速排序递归函数
+// void quickSort(void* arr, int low, int high, size_t size, int (*compare)(const void*, const void*)) {
+//     if (low < high) {
+//         int pivot = partition(arr, low, high, size, compare);
+//         quickSort(arr, low, pivot - 1, size, compare);
+//         quickSort(arr, pivot + 1, high, size, compare);
+//     }
+// }
+
+// // 快速排序的入口函数，对外提供的接口
+// void qsort(void* arr, size_t count, size_t size, int (*compare)(const void*, const void*)) {
+//     quickSort(arr, 0, count - 1, size, compare);
+// }
+
+// // 比较函数，用于指定排序规则
+// int compare(const void* a, const void* b) {
+//     int numA = *(reinterpret_cast<const int*>(a));
+//     int numB = *(reinterpret_cast<const int*>(b));
+
+//     if (numA < numB) return -1;
+//     if (numA > numB) return 1;
+//     return 0;
+// }
+
+// int main() {
+//     int arr[] = {5, 3, 8, 2, 1, 9, 4, 7, 6};
+//     int size = sizeof(arr) / sizeof(arr[0]);
+
+//     qsort(arr, size, sizeof(int), compare);
+
+//     std::cout << "排序后的数组：";
+//     for (int i = 0; i < size; i++) {
+//         std::cout << arr[i] << " ";
+//     }
+//     std::cout << std::endl;
+
+//     return 0;
+// }
+
+// //******************************************************************************************************************
+//partition部分做了优化
+
+// #include <iostream>
+// #include <vector>
+// #include <chrono>
+// int partition(std::vector<int>& vi,int low,int high) {
+//     int pivot = vi[low];    //暂存枢轴
+//     for (int fast = low;fast <high;fast++) {
+//         if (vi[fast] <= pivot) {
+
+//         }
+//     }
+//     vi[low] = pivot;
+//     return low;
+// }
+// void quickSort(std::vector<int>& vi,int low,int high) {     //传入要划分的table 并传入low和high指针
+//     if (low < high) {                                       //low < high 进行划分
+//         int pivotPosition = partition(vi,low,high);         //call partition函数 进行划分
+//         quickSort(vi,low,pivotPosition-1);      //划分左子表
+//         quickSort(vi,pivotPosition+1,high);     //划分右子表
+//     }
+// }
+// void print(const std::vector<int>& vi);
+// int main() {
+//     //Create test object
+//     std::vector<int> array;
+//     array.push_back(49);
+//     array.push_back(38);
+//     array.push_back(65);
+//     array.push_back(97);
+//     array.push_back(76);
+//     array.push_back(13);
+//     array.push_back(27);
+//     array.push_back(49);
+//     array.push_back(23);
+//     array.push_back(32);
+//     array.push_back(3213);
+//     array.push_back(321);
+//     array.push_back(-2313);
+//     array.push_back(-100);
+//     array.push_back(34);
+//     array.push_back(99);
+//     array.push_back(39);
+//     array.push_back(29);
+//     array.push_back(19);
+//     for (int i = 100;i >= 0;i--) array.emplace_back(i);
+
+//     print(array);
+
+//     auto start = std::chrono::high_resolution_clock::now();     //测试程序运行时间begin
+//     //###############################################################################
+//     quickSort(array,0,array.size()-1);
+//     //###############################################################################
+//     auto stop = std::chrono::high_resolution_clock::now();      //测试程序运行时间end
+//     //Print result
+//     std::cout << "程序运行时间：" << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " 微秒" << std::endl;
+//     std::cout << "quick sort:" << std::endl;
+//     print(array);
+// }
+// void print(const std::vector<int>& vi) {
+//     std::cout << "array: ";
+//     for (int element:vi) {
+//         std::cout << element << " ";
+//     }
+//     std::cout << std::endl;
+// }

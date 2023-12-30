@@ -23,7 +23,6 @@ note:
 #include <iostream>
 #include <vector>
 #include <map>
-#include <queue>
 class Solution {
 public:
     std::vector<int> topKFrequent(std::vector<int>& nums, int k) {
@@ -59,16 +58,15 @@ note:
 #include <unordered_map>
 class Solution {
 public:
-    static bool compare(const std::pair<int,int>& pair1, const std::pair<int,int>& pair2);
+    static bool compare(const std::pair<int,int>& pair1, const std::pair<int,int>& pair2) {
+        return pair1.second > pair2.second;
+    }
     std::vector<int> topKFrequent(std::vector<int>& nums, int k) {
         std::unordered_map<int,int> hashTable;
         for (int& elem:nums) {
             hashTable[elem]++;
         }
-        std::vector<std::pair<int,int>> pairs;
-        for (const auto& pair:hashTable) {
-            pairs.push_back(pair);
-        }
+        std::vector<std::pair<int,int>> pairs(hashTable.begin(),hashTable.end());
         std::sort(pairs.begin(),pairs.end(),compare);
         std::vector<int> ret;
         for (int i = 0;i < k;i++) {
@@ -77,6 +75,3 @@ public:
         return ret;
     }
 };
-    bool Solution::compare(const std::pair<int,int>& pair1,const std::pair<int,int>& pair2) {
-        return pair1.second > pair2.second;
-    }
