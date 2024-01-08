@@ -14,7 +14,21 @@
 */
 #include <iostream>
 #include <vector>
-#include <chrono>
+void merge(std::vector<int>& nums,int low,int mid,int high);
+void mergeSort(std::vector<int>& nums,int low,int high);
+void print(const std::vector<int>& vi);
+void buildArray(std::vector<int>& nums);
+
+int main() {
+    //Create test object
+    std::vector<int> array; buildArray(array);
+    //###############################################################################
+    mergeSort(array,0,array.size()-1);
+    //###############################################################################
+    //Print result
+    std::cout << "merge sort:" << std::endl;
+    print(array);
+}
 void merge(std::vector<int>& nums,int low,int mid,int high) {
     std::vector<int> tempNums(nums.size(),0);   //分配和nums一样大的数组空间
     for (int i = low;i <= high;i++) {   //把需要归并的子数组copy到temporary
@@ -40,41 +54,26 @@ void mergeSort(std::vector<int>& nums,int low,int high) {
         merge(nums,low,mid,high);   //总归并
     }
 }
-void print(const std::vector<int>& vi);
-int main() {
-    //Create test object
-    std::vector<int> array;
-    array.push_back(49);
-    array.push_back(38);
-    array.push_back(65);
-    array.push_back(97);
-    array.push_back(76);
-    array.push_back(13);
-    array.push_back(27);
-    array.push_back(49);
-    array.push_back(23);
-    array.push_back(32);
-    array.push_back(3213);
-    array.push_back(321);
-    array.push_back(-2313);
-    array.push_back(-100);
-    array.push_back(34);
-    array.push_back(99);
-    array.push_back(39);
-    array.push_back(29);
-    array.push_back(19);
-    for (int i = 100;i >= 0;i--) array.emplace_back(i);
-    print(array);
-
-    auto start = std::chrono::high_resolution_clock::now();     //测试程序运行时间begin
-    //###############################################################################
-    mergeSort(array,0,array.size()-1);
-    //###############################################################################
-    auto stop = std::chrono::high_resolution_clock::now();      //测试程序运行时间end
-    //Print result
-    std::cout << "程序运行时间：" << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " 微秒" << std::endl;
-    std::cout << "quick sort:" << std::endl;
-    print(array);
+void buildArray(std::vector<int>& nums) {
+    nums.push_back(49);
+    nums.push_back(38);
+    nums.push_back(76);
+    nums.push_back(13);
+    nums.push_back(27);
+    nums.push_back(49);
+    nums.push_back(23);
+    nums.push_back(32);
+    nums.push_back(3213);
+    nums.push_back(321);
+    nums.push_back(-2313);
+    nums.push_back(-100);
+    nums.push_back(34);
+    nums.push_back(99);
+    nums.push_back(39);
+    nums.push_back(29);
+    nums.push_back(19);
+    std::cout << "Array created successfully" << std::endl;
+    print(nums);
 }
 void print(const std::vector<int>& vi) {
     std::cout << "array: ";

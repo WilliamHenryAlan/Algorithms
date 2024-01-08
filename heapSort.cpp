@@ -10,7 +10,24 @@
 
 #include <iostream>
 #include <vector>
-#include <chrono>
+void HeadAdjust(std::vector<int>& nums,int k);
+void buildMaxHeap(std::vector<int>& nums);
+void heapSort(std::vector<int>& nums);
+void print(const std::vector<int>& vi);
+void buildArray(std::vector<int>& nums);
+
+int main() {
+    //Create test object
+    std::vector<int> array; buildArray(array);
+    //###############################################################################
+    buildMaxHeap(array);
+    heapSort(array);
+    //###############################################################################
+    //Print result
+    std::cout << "heap sort:" << std::endl;
+    print(array);
+}
+
 //adjust以nums[i]为root的子树 使他的左右孩子小于他 如果有左右孩子的话
 void HeadAdjust(std::vector<int>& nums,int k) {
     nums[0] = nums[k];   //nums[0]可以暂存需要处理node的value
@@ -35,36 +52,31 @@ void buildMaxHeap(std::vector<int>& nums) {
     }
 }
 
-void heapSort() {
+void heapSort(std::vector<int>& nums) {
     
 }
-void print(const std::vector<int>& vi);
-int main() {
-    //Create test object
-    std::vector<int> array;
-    array.push_back(-1);
-    array.push_back(53);
-    array.push_back(17);
-    array.push_back(78);
-    array.push_back(9);
-    array.push_back(45);
-    array.push_back(65);
-    array.push_back(87);
-    array.push_back(32);
-
-    //for (int i = 100;i >= 0;i--) array.emplace_back(i);
-    print(array);
-
-    auto start = std::chrono::high_resolution_clock::now();     //测试程序运行时间begin
-    //###############################################################################
-    buildMaxHeap(array);
-    //###############################################################################
-    auto stop = std::chrono::high_resolution_clock::now();      //测试程序运行时间end
-    //Print result
-    std::cout << "程序运行时间：" << std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count() << " 微秒" << std::endl;
-    std::cout << "quick sort:" << std::endl;
-    print(array);
+void buildArray(std::vector<int>& nums) {
+    nums.push_back(49);
+    nums.push_back(38);
+    nums.push_back(76);
+    nums.push_back(13);
+    nums.push_back(27);
+    nums.push_back(49);
+    nums.push_back(23);
+    nums.push_back(32);
+    nums.push_back(3213);
+    nums.push_back(321);
+    nums.push_back(-2313);
+    nums.push_back(-100);
+    nums.push_back(34);
+    nums.push_back(99);
+    nums.push_back(39);
+    nums.push_back(29);
+    nums.push_back(19);
+    std::cout << "Array created successfully" << std::endl;
+    print(nums);
 }
+
 void print(const std::vector<int>& vi) {
     std::cout << "array: ";
     for (int element:vi) {

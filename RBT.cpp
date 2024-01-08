@@ -11,11 +11,7 @@
 从任何一个节点出发不包含该结点 到任意空结点的路径的 黑节点总数
 
 */
+
 #include <iostream>
-struct RBnode {
-    int key;
-    RBnode* parent;
-    RBnode* left;
-    RBnode* right;
-    int color;
-};
+#include <memory>
+
