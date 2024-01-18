@@ -6,6 +6,8 @@ struct ListNode {
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
 };
+
+//doubly pointer
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
@@ -35,7 +37,7 @@ public:
     }
 };
 
-//2024.1.12
+//2024.1.12 hash table
 class Solution {
 public:      
     bool hasCycle(ListNode *head) {
