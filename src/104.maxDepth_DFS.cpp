@@ -36,3 +36,24 @@ public:
         //return left >= right ? left+1:right+1;  //对比左右子树高度 返回根节点高度
     }
 };
+class Solution{
+public:
+    void traverse(TreeNode* root,int& depth,int& res) {
+        if (root == nullptr) {
+            return ;
+        }
+        depth++;
+        if (root->left == nullptr and root->right == nullptr) {
+            res = std::max(res,depth);
+        }
+        traverse(root->left,depth,res);
+        traverse(root->right,depth,res);
+        depth--;
+    }
+    int maxDepth(TreeNode* root) {
+        int depth = 0;
+        int res = 0;
+        traverse(root,depth,res);
+        return res;
+    }
+};
