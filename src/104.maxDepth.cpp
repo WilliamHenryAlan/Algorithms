@@ -4,13 +4,7 @@
 二叉树的 最大深度 是指从根节点到最远叶子节点的最长路径上的节点数。
 */
 
-/*
-solution:
-高度和深度的概念
-1.题目要求求最大深度 转化为求根节点高度 这样可以用后序遍历回溯 从而求解
-2.确定了用后序遍历 写出递归三部曲
 
-*/
 #include<iostream>
 #include <vector>
 #include <queue>
@@ -24,6 +18,18 @@ using namespace std;
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
+/*
+solution:
+高度和深度的概念
+1.题目要求求最大深度 转化为求根节点高度 这样可以用后序遍历回溯 从而求解
+2.确定了用后序遍历 写出递归三部曲
+
+*/
+/*
+Method 1:recursion
+
+*/
+//implementation 1:
 class Solution {
 public:
     int maxDepth(TreeNode* root) {  //参数和返回值
@@ -36,6 +42,7 @@ public:
         //return left >= right ? left+1:right+1;  //对比左右子树高度 返回根节点高度
     }
 };
+//implementation 2:
 class Solution{
 public:
     void traverse(TreeNode* root,int& depth,int& res) {
@@ -55,5 +62,36 @@ public:
         int res = 0;
         traverse(root,depth,res);
         return res;
+    }
+};
+
+/*
+Method 2:iteration
+1.用level order
+*/
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+        std::queue<TreeNode*> q;
+        q.push(root);
+        int depth = 0;
+        while (!q.empty()) {
+            int size = q.size();
+            depth++;
+            while (size--) {
+                TreeNode* temp = q.front();
+                q.pop();
+                if (temp->left != nullptr) {
+                    q.push(temp->left);
+                }
+                if (temp->right != nullptr) {
+                    q.push(temp->right);
+                }
+            }
+        }
+        return depth;
     }
 };

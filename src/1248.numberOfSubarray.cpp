@@ -3,12 +3,28 @@
 using namespace std;
 
 /*
+example 1:
+输入：nums = [1,1,2,1,1], k = 3
+输出：2
+解释：包含 3 个奇数的子数组是 [1,1,2,1] 和 [1,2,1,1] 
+
+
 Method 1:prefix Sum 前缀和
+1.  nums = [1,1,2,1,1]%2 => [1,1,0,1,1]
+    对数组进行模2操作 奇数会得1 偶数得0
+    这样把找k个奇数子数组转化为 
+    
 */
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
-        return 0;
+        int len = nums.size();
+        vector<int> prefixArr(len+1,0);
+        for (int i = 0;i < len;i++) {
+            prefixArr[i+1] = prefixArr[i]+nums[i]%2;
+        }
+        vector<int> hashtable;
+        for ()
     }
 };
 
