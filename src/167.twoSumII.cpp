@@ -25,7 +25,7 @@ public:
 };
 
 /*
-Method 2:double pointer
+Method 2:相向双指针
 1.left和right指针指向左右
 2.每次循环遍历计算*left+*right 并和 target进行比较
                                     如果 > target => right--
@@ -69,3 +69,28 @@ public:
 //         return {};
 //     }
 // };
+
+//review    2024.1.22
+/*
+double pointer
+*/
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        std::sort(nums.begin(),nums.end());
+        int len = nums.size();
+        int l = 0,r = len-1;
+        while (l < r) {
+            int sum = nums[l]+nums[r];
+            if (sum == target) {
+                return {l+1,r+1};
+            } else if (sum > target)
+                 r--;
+            else {
+                l++;
+            }
+        }
+        return {};
+    }
+};

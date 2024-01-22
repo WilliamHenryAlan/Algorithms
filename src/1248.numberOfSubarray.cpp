@@ -13,7 +13,6 @@ Method 1:prefix Sum 前缀和
 1.  nums = [1,1,2,1,1]%2 => [1,1,0,1,1]
     对数组进行模2操作 奇数会得1 偶数得0
     这样把找k个奇数子数组转化为 
-    
 */
 class Solution {
 public:
