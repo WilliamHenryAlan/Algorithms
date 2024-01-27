@@ -1,10 +1,43 @@
+#include<iostream>
+using namespace std;
+//Definition for a binary tree node.
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
 /*
-给定一个二叉树，判断它是否是高度平衡的二叉树。
+preorder:
 
-本题中，一棵高度平衡二叉树定义为：
-一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
-
+1.如果遇到nullptr 则返回高度为0 是其中一种循环终止条件
+2.因为求高度 是从左右子树收集信息给root 用postorder
+3.单层递归逻辑：
+            1.递归遍历左右子树高度 自己规定如果为不平衡二叉树 return-1
+            2.左右node递归结束 处理root 算出左右子树差 如果 > 1则return -1
+            3.如果上述情况都不满足 返回root的左右子树高的子树+1（1为root）
 */
+
+class Solution {
+public:
+    int getHigh(TreeNode* root) {
+        if (root == nullptr) return 0;  //1.确认循环种植条件
+        //2.确认单层逻辑和遍历顺序
+        int left = getHigh(root->left);
+        if (left == -1) return -1;
+        int right = getHigh(root->right);
+        if (right == -1) return -1;
+        int contrary = std::abs(left-right);
+        if (contrary > 1) return -1;
+        return std::max(left,right)+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if (getHigh(root) == -1) return false;
+        return true;
+    }
+};
 
 /*
 solution:
@@ -25,17 +58,6 @@ solution:
 如果不大于 说明是平衡二叉树 return 左右子树高度
 
 */
-#include<iostream>
-using namespace std;
-//Definition for a binary tree node.
-  struct TreeNode {
-      int val;
-      TreeNode *left;
-      TreeNode *right;
-      TreeNode() : val(0), left(nullptr), right(nullptr) {}
-      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
 class Solution {
 public:
     int Banlanced(TreeNode* root) {

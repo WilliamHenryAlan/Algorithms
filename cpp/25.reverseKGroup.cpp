@@ -16,6 +16,8 @@ head -> 1 -> 2 -> 3 -> 4 -> nullptr
 
 2.reverse
 
+tips：
+1.链表的问题画图
 */
 
 

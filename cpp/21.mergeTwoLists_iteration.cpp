@@ -1,3 +1,11 @@
+#include <iostream>
+  struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode() : val(0), next(nullptr) {}
+      ListNode(int x) : val(x), next(nullptr) {}
+      ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
 /*
 template
 */
@@ -25,6 +33,32 @@ public:
     }
 };
 
+
+/*
+2024.1.27
+
+*/
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode *ret = new ListNode(-1);
+        ListNode *k = ret;
+        while (l1 != nullptr and l2 != nullptr) {
+            if (l1->val <= l2->val) {
+                k->next = l1;
+                l1 = l1->next;
+            }else {
+                k->next = l2;
+                l2 = l2->next;
+            }
+            k = k->next;
+        }
+        k->next = (l1 == nullptr ? l2:l1);
+        return ret->next;
+    }
+};
+
+
 /*
 2023.12.18
 issue:
@@ -38,14 +72,6 @@ solution：
 3.循环对比 如果a->val>b->val 就把ret指针的linkedlist的tailNode指针指向b 并且b向后遍历
 4.条件为a != nullptr && b!= nullptr 当两个list其中一个遍历结束后 把没比对完的list直接加入retList
 */
-#include <iostream>
-  struct ListNode {
-      int val;
-      ListNode *next;
-      ListNode() : val(0), next(nullptr) {}
-      ListNode(int x) : val(x), next(nullptr) {}
-      ListNode(int x, ListNode *next) : val(x), next(next) {}
- };
 
 class Solution {
 public:
