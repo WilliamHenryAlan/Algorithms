@@ -11,7 +11,14 @@ using namespace std;
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 /*
-
+Method: 前序遍历 递归
+1.如果是nullptr return
+2.每次都把暂存在temp
+3.如果path中没有路径 就直接添加val 
+                   如果有路径 就添加 “->” 再添加val
+4.如果此时是leafNode 则把path暂存
+5.递归遍历左右子树
+6.回溯
 */
 class Solution {
 public:
@@ -28,6 +35,27 @@ public:
         std::vector<std::string> ret;
         std::string path = "";
         dfs(root,ret,path);
+        return ret;
+    }
+};
+/*
+practice 2024.1.28
+*/
+class Solution {
+public:
+    void backtracking(TreeNode* root,std::vector<std::string>& ans,std::string& path) {
+        if (root == nullptr) return;
+        std::string temp = path;
+        path += (path == ""?"":"->") + std::to_string(root->val);
+        if (root->left == nullptr and root->right == nullptr) ans.emplace_back(path);
+        backtracking(root->left,ans,path);
+        backtracking(root->right,ans,path);
+        path = temp;
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        std::vector<std::string> ret;
+        std::string path = "";
+        backtracking(root,ret,path);
         return ret;
     }
 };
@@ -50,13 +78,13 @@ public:
         if (root == nullptr) {
             return ;
         }
-        str += std::to_string(root->val);
+        str += std::to_string(root->val);   //root
         if (root->left == nullptr and root->right == nullptr) {
             ret.push_back(str);
         }else {
             str += "->";
-            constructPaths(root->left,ret,str);
-            constructPaths(root->right,ret,str);
+            constructPaths(root->left,ret,str); //left
+            constructPaths(root->right,ret,str);//right
         }
     }
     vector<string> binaryTreePaths(TreeNode* root) {

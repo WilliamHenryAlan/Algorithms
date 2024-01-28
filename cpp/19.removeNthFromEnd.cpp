@@ -63,18 +63,38 @@ public:
         return head;
     }
 };
-
 /*
-
+practice:2024.1.28
+tips:
+1.single LinkedList 删除node 需要找到他的前一个node 
+也就是要删除倒数第N个node 需要找到倒数N-1个node才能实现删除操作
+2.要考虑边界情况
 */
-#include <iostream>
-struct ListNode {
-      int val;
-      ListNode *next;
-      ListNode() : val(0), next(nullptr) {}
-      ListNode(int x) : val(x), next(nullptr) {}
-      ListNode(int x, ListNode *next) : val(x), next(next) {}
- };
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (head == nullptr) return nullptr;
+        ListNode* dummy = new ListNode(-1,head);
+        head = dummy;
+        ListNode* fast = head;
+        for (int i = 0;fast != nullptr and i < n;i++) {
+            fast = fast->next;
+        }
+        while (fast != nullptr and fast->next != nullptr) {
+            head = head->next;
+            fast = fast->next;
+        }
+        ListNode* release = head->next;
+        head->next = head->next->next;
+        delete release;
+        ListNode* ret = dummy->next;
+        delete dummy;
+        return ret;
+    }
+};
+/*
+practice
+*/
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
@@ -110,38 +130,3 @@ public:
         }
     }
 };
-//test program
-ListNode* buildList(std::vector<int>& nums) {  
-    if (nums.empty()) {
-        return nullptr;
-    }
-    ListNode* head = new ListNode(nums[0]);
-    ListNode* cur = head;
-    for (int i = 1; i < nums.size(); i++) {
-        cur->next = new ListNode(nums[i]);
-        cur = cur->next;
-    }
-    return head;
-}
-void print(const ListNode* head) {
-    const ListNode* temp = head;
-    std::cout << "LinkedList is ";
-    while (temp != nullptr) {
-        std::cout << temp->val << " ";
-        temp = temp->next;
-    }
-    std::cout << std::endl;
-}
-int main() {
-    std::vector<int> nums;
-    for (int i = 0; i < 6; i++)
-    {
-        nums.push_back(i);
-    }
-    ListNode* head = nullptr;
-    head = buildList(nums);
-    print(head);
-    Solution A;
-    head = A.removeNthFromEnd(head,2);
-    print(head);
-}

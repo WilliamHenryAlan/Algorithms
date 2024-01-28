@@ -63,3 +63,18 @@ public:
         return slow;
     }
 };
+/*
+practice:2024.1.28
+*/
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        if (head == nullptr) return nullptr;
+        ListNode* slow = head, *fast = head;
+        while (fast != nullptr and fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+};
