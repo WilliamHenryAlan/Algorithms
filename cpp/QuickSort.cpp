@@ -30,6 +30,7 @@ eg：随机选择枢轴元素
 
 #include <iostream>
 #include <vector>
+using namespace std;
 int partition(std::vector<int>& vi,int low,int high);
 void quickSort(std::vector<int>& vi,int low,int high);
 void buildArray(std::vector<int>& nums);

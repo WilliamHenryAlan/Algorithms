@@ -26,23 +26,22 @@ solution:
 
 */
 /*
-Method 1:recursion
-
+Method 2:DFS
 */
-//implementation 1:
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {  //参数和返回值
-        if (root == nullptr) {      //循环终止条件
+    //这个写法的思路实际上是用后序遍历求高度
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) {
             return 0;
         }
-        int left = maxDepth(root->left);
+        int left = maxDepth(root->left);    
         int right = maxDepth(root->right);  //分别求出左右子树的高度
         return std::max(left,right)+1;
         //return left >= right ? left+1:right+1;  //对比左右子树高度 返回根节点高度
     }
 };
-//implementation 2:
+//求深度 并进行回溯
 class Solution{
 public:
     void traverse(TreeNode* root,int& depth,int& res) {
@@ -53,6 +52,9 @@ public:
         if (root->left == nullptr and root->right == nullptr) {
             res = std::max(res,depth);
         }
+        /*
+        左右孩子在同一层 depth是一致的
+        */
         traverse(root->left,depth,res);
         traverse(root->right,depth,res);
         depth--;

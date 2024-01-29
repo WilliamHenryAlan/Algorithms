@@ -1,7 +1,8 @@
 #include<iostream>
 #include <vector>
 #include <queue>
-  struct TreeNode {
+using namespace std;
+struct TreeNode {
       int val;
       TreeNode *left;
       TreeNode *right;
@@ -45,6 +46,31 @@ public:
                 q.pop();    //迭代 pop 所以要提前记录size
             }
             ret.push_back(vi);  //不用vi.clear() 直接在上一个while循环里创建本地变量 离开作用域自动消亡
+        }
+        return ret;
+    }
+};
+/*
+review 2024.1.29
+*/
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (root == nullptr) return {};
+        std::vector<std::vector<int>> ret;
+        std::queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int size = q.size();
+            std::vector<int> level;
+            while (size--) {
+                TreeNode* temp = q.front();
+                level.emplace_back(temp->val);
+                q.pop();
+                if (temp->left != nullptr) q.push(temp->left);
+                if (temp->right != nullptr) q.push(temp->right);
+            }
+            ret.emplace_back(level);
         }
         return ret;
     }
