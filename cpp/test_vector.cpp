@@ -37,46 +37,40 @@ void buildArray(std::vector<int>& nums);
 void print(const std::vector<int>& vi);
 class Solution {
 public:
-    void backtracking(int startIndex,int n,int k,vector<int>& path,vector<vector<int> >& ret) {
-        //写循环终止条件 也就是leafNode 当path元素个数为k时 得到答案
-        if (path.size() == k) {
-            ret.emplace_back(path);
-            return;
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        if (n < 2) return n;
+        vector<int> dp(n+1,0);
+        // dp[0] = 0;
+        // dp[1] = 0;
+        // dp[2] = 0;
+        //dp[i]为爬到第i层的最小花费
+        for (int i = 3;i <= n;i++) {
+            dp[i] = std::min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2]);
         }
-        for (int i = startIndex;i <= n;++i) {
-            path.emplace_back(i);           //每次push进去 进行递归 如果满足leafNode条件
-            backtracking(i+1,n,k,path,ret);
-            path.pop_back();
+        for (int& vi:dp) {
+            cout << vi << " ";
         }
-    }
-    vector<vector<int> > combine(int n, int k) {
-        vector<int> path;
-        vector<vector<int> > ret;
-        backtracking(1,n,k,path,ret);
-        return ret;
+        cout << endl;
+        for (int i = 0;i <= n;i++) cout << i << " ";
+        return dp[n];
     }
 };
 int main() {
     //Create test object
     std::vector<int> array;
+    buildArray(array);
     //#############################################################################################
     Solution A;
-    vector<vector<int> > ans = A.combine(4,2);
-    for (vector<int>& vi:ans) {
-        print(vi);
-        cout << " ";
-    }
+    int ans = A.minCostClimbingStairs(array);
+    
+    cout << "ret = " << ans << endl;
     
     //#############################################################################################
     std::cout << "quick sort:" << std::endl; print(array);
 }
 void buildArray(std::vector<int>& nums) {
-    nums.push_back(49);
-    nums.push_back(38);
-    nums.push_back(76);
-    nums.push_back(39);
-    nums.push_back(29);
-    nums.push_back(19);
+    nums = {1,100,1,1,1,100,1,1,100,1};
     std::cout << "Array created successfully" << std::endl;
     print(nums);
 }

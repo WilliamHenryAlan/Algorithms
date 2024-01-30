@@ -1,43 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
 /*
-给你一个字符串数组 tokens ，表示一个根据 逆波兰表示法 表示的算术表达式。
-
-请你计算该表达式。返回一个表示表达式值的整数。
-
-注意：
-
-    有效的算符为 '+'、'-'、'*' 和 '/' 。
-    每个操作数（运算对象）都可以是一个整数或者另一个表达式。
-    两个整数之间的除法总是 向零截断 。
-    表达式中不含除零运算。
-    输入是一个根据逆波兰表示法表示的算术表达式。
-    答案及所有中间计算结果可以用 32 位 整数表示。 
-
-示例 1：
-
-输入：tokens = ["2","1","+","3","*"]
-输出：9
-解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
-
-示例 2：
-
-输入：tokens = ["4","13","5","/","+"]
-输出：6
-解释：该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6
-
-示例 3：
-
-输入：tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
-输出：22
-解释：该算式转化为常见的中缀算术表达式为：
-  ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
-= ((10 * (6 / (12 * -11))) + 17) + 5
-= ((10 * (6 / -132)) + 17) + 5
-= ((10 * 0) + 17) + 5
-= (0 + 17) + 5
-= 17 + 5
-= 22
+review 2024.1.30
+/*
+tokens = ["2","1","+","3","*"]
+这道题是经典的用栈解决的题目类型
+后缀表达式 也就是逆波兰表达式是没有括号的
+所以 遍历tokens的过程中 只会碰到operator和numbers两种情况
+1.因为后缀表达式的操作符顺序其实就是运算的顺序（优先级） 所以
+2.遍历tokens 如果不为operators则push
+            else 弹出两个numbers 先出来的为右操作数  运算之后push
 */
-
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        std::stack<std::string> myStack;
+        for (std::string& s:tokens) {
+            if (s != "+" and s != "-" and s != "*" and s != "/") {
+                myStack.push(s);
+            }else {
+                int right = std::stoi(myStack.top());
+                myStack.pop();
+                int left = stoi(myStack.top());
+                myStack.pop();
+                int result;
+                if (s == "*") {
+                    result = left * right;
+                }else if(s == "/") {
+                    result = left / right;
+                }else if (s == "+") {
+                    result = left + right;
+                }else if (s == "-") {
+                    result = left - right;
+                }
+                myStack.push(to_string(result));
+            }
+        }
+        return stoi(myStack.top());
+    }
+};
 /*
 solution：
 手动模拟：后缀表达式只会遇到两种情况 1.遇到数字 2.遇到操作符
@@ -46,9 +49,6 @@ solution：
 这种类似 弹出消除的想到栈stack
 */
 
-#include <iostream>
-#include <vector>
-#include <stack>
 class Solution {
 public:
 
