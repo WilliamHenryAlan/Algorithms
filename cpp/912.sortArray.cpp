@@ -30,3 +30,14 @@ public:
         return nums;
     }
 };
+//qs
+/*
+11,8,3,9,7,1,2,5
+
+*/
+class Solution {
+public:
+    vector<int> sortArray(vector<int>& nums) {
+
+    }
+};

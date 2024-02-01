@@ -12,6 +12,14 @@
 
 ## 2.双指针
 >
+## 3.hashtable
++ array
++ set
++ map
+### unorder_set/unorder_map
+底层实现为hash
+### set/map
+std::set只有key 不能重复 std::map是key-value存储 不能重复 multiset和multimap可以重复 底层实现都是RBT
 
 ## Monotone Stack（单调栈）
 > 单调栈适合处理**下一个更大元素类的问题**
