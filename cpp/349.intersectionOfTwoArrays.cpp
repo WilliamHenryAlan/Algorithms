@@ -1,26 +1,3 @@
-/*
-Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
-
- 
-
-Example 1:
-
-Input: nums1 = [1,2,2,1], nums2 = [2,2]
-Output: [2]
-
-Example 2:
-
-Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-Output: [9,4]
-Explanation: [4,9] is also accepted.
-
- 
-
-Constraints:
-
-    1 <= nums1.length, nums2.length <= 1000
-    0 <= nums1[i], nums2[i] <= 1000
-*/
 
 /*
 solution:
@@ -33,6 +10,9 @@ solution:
 4.循环遍历nums2的元素 如果找到就把元素插入到unordered_set ret里
 5.最后把ret这个集合转化为数组返回
 */
+/*
+implementation:set
+*/
 #include <iostream>
 #include <unordered_set>
 class Solution {
@@ -42,6 +22,25 @@ public:
         std::unordered_set<int> nums_set(nums1.begin(),nums1.end());//3.
         for (int element:nums2) {                           //4.
             if (nums_set.find(element) != nums_set.end()) {     //nums_set.find(element)返回一个迭代器 如果没找到返回end()
+                ret.insert(element);
+            }
+        }
+        return std::vector<int>(ret.begin(),ret.end());
+    }
+};
+/*
+implementation:Array
+*/
+class Solution {
+public:
+    std::vector<int> intersection(std::vector<int>& nums1, std::vector<int>& nums2) {
+        std::unordered_set<int> ret;
+        int hash[1001]{0};
+        for (int element:nums1) {
+            hash[element] = 1;
+        }
+        for (int element:nums2) {
+            if (hash[element] == 1) {
                 ret.insert(element);
             }
         }

@@ -21,6 +21,9 @@ solution:
 #include <string>
 #include <stack>
 #include <algorithm>
+/*
+Method 1:stack
+*/
 class Solution {
 public:
     std::string removeDuplicates(std::string s) {
@@ -40,6 +43,23 @@ public:
         while (!st.empty()) {
             ret.insert(0,1,st.top());
             st.pop();
+        }
+        return ret;
+    }
+};
+/*
+Method 2:string
+*/
+class Solution {
+public:
+    std::string removeDuplicates(std::string s) {
+        std::string ret;
+        for (char c:s) {
+            if (ret.empty() or ret.back() != c) {
+                ret.push_back(c);
+            }else {
+                ret.pop_back();
+            }
         }
         return ret;
     }
