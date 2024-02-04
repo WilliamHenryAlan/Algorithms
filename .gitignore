@@ -23,7 +23,7 @@ bower_components/
 
 # 忽略日志文件
 *.log
-
+tutorial/
 # 忽略临时文件和目录
 tmp/
 temp/
