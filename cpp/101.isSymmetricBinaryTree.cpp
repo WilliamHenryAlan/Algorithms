@@ -46,6 +46,24 @@ public:
     }
 };
 
+/*
+review 2024.2.3
+*/
+class Solution {
+public:
+    bool traversal(TreeNode* l,TreeNode* r) {
+        if (!l and !r) return true;
+        if (!l and r) return false;
+        if (l and !r) return false;
+        if (l->val != r->val) return false;
+        return traversal(l->left,r->right) and traversal(l->right,r->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        return traversal(root->left,root->right);
+    }
+};
+
 class Solution {
 public:
     bool recursion(TreeNode* left,TreeNode* right) {
