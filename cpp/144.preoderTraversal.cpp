@@ -3,10 +3,6 @@
 #include <stack>
 
 using namespace std;
-//Definition for a binary tree node.
-//1.确定递归函数的参数和返回值
-//2.确认递归终止条件
-//3.确认单层递归逻辑
   struct TreeNode {
       int val;
       TreeNode *left;
@@ -15,8 +11,12 @@ using namespace std;
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
-
+//1.确定递归函数的参数和返回值
+//2.确认递归终止条件
+//3.确认单层递归逻辑
+/*
+Method 1: recursion
+*/
 class Solution {
 public:
     void preorder(TreeNode*& root,std::vector<int>& vi)
@@ -35,7 +35,9 @@ public:
     }
 };
 
-
+/*
+Method 2: iteration
+*/
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {     //1.根据递归的实现 模拟栈的过程
@@ -58,5 +60,29 @@ public:
             }
         }
         return ret; //栈空 遍历结束
+    }
+};
+
+//review 2024.2.5
+
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        std::vector<int> ret;
+        stack<TreeNode* > stk;
+        if (!root) return ret;
+        stk.push(root);
+        while (!stk.empty()) {
+            TreeNode* temp = stk.top();
+            stk.pop();
+            ret.emplace_back(temp->val);
+            if (temp->right) {
+                stk.push(temp->right);
+            }
+            if (temp->left) {
+                stk.push(temp->left);
+            }
+        }
+        return ret;
     }
 };

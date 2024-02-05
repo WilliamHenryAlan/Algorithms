@@ -55,3 +55,25 @@ public:
         return ret; 
     }
 };
+
+/*
+review 2024.2.5
+*/
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        std::vector<int> ret;
+        stack<TreeNode* > stk;
+        if (!root) return ret;
+        stk.push(root);
+        while (!stk.empty()) {
+            TreeNode* temp = stk.top();
+            stk.pop();
+            ret.emplace_back(temp->val);
+            if (temp->left) stk.push(temp->left);
+            if (temp->right) stk.push(temp->right);
+        }
+        reverse(ret.begin(),ret.end());
+        return ret;
+    }
+};  
