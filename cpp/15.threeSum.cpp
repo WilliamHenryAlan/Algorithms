@@ -4,15 +4,17 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+using namespace std;
 /*
-输入：nums = [-1,0,1,2,-1,-4]
-输出：[[-1,-1,2],[-1,0,1]]
-解释：
-nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
-nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
-nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
-不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
-注意，输出的顺序和三元组的顺序并不重要。
+要求三个数相加 == 0
+1.先排序
+2.难点在于去重 
+            1.首先i需要去重 if (i > 0 && nums[i] == nums[i-1])  continue;
+            2.left++;
+              right--;
+            while (left < right && nums[right] == nums[right+1]) right--;
+            while (left < right && nums[left] == nums[left-1]) left++;
+3.双指针寻找后两个元素之和等于第一个元素的相反数
 */
 class Solution {
 public:
@@ -41,5 +43,40 @@ public:
             }
         }
         return ret;
+    }
+};
+/*
+review 2024.2.6
+tips：1.去重方法要注意细节
+*/
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        sort(nums.begin(),nums.end());
+        for (int i = 0;i < nums.size()-2;i++) {
+            if (nums[i] > 0) break;
+            int l = i+1;
+            int r = nums.size()-1;
+            while (l < r) {
+                int sum = nums[l] + nums[r];
+                if (sum + nums[i] == 0) {
+                    ans.push_back({nums[i],nums[l],nums[r]});
+                    l++;
+                    r--;
+                    while (l < r && nums[l-1] == nums[l]) {
+                        l++;
+                    }
+                    while (l < r && nums[r] == nums[r+1]) {
+                        r--;
+                    }
+                }else if (sum > -nums[i]) {
+                    r--;
+                }else {
+                    l++;
+                }
+            }
+        }
+        return ans;
     }
 };

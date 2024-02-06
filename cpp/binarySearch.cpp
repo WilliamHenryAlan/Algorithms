@@ -39,6 +39,7 @@ arr:    1   2   4   6   7
 边界情况low == heigh 应该继续 mid = 1 array[1] == target return 1
         
 */
+
 #include <iostream>
 #include <vector>
 
@@ -77,3 +78,10 @@ void print(const std::vector<int>& vi) {
     }
     std::cout << std::endl;
 }
+/*
+tips:
+1.二分查找必须在数组有序的前提下
+2.对于边界条件的处理 要记住循环不变量
+*/
+三种区间的写法：
+

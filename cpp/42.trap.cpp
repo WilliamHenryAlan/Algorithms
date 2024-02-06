@@ -1,6 +1,47 @@
 #include <iostream>
 #include <stack>
+#include <vector>
+using namespace std;
+/*
+Method 1:前后缀
+*/
 
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int len = height.size();
+        vector<int> pre_max(len,0);
+        pre_max[0] = height[0];
+        for (int i = 1;i < len;i++) {
+            pre_max[i] = max(height[i],pre_max[i-1]);
+        }
+        vector<int> suf_max(len,0);
+        suf_max[len-1] = height[len-1];
+        for (int i = len-2;i >= 0;i--) {
+            suf_max[i] = max(height[i],suf_max[i+1]);
+        }
+        int ans = 0;
+        for (int i = 0;i < len;i++) {
+            ans += (min(pre_max[i],suf_max[i]) - height[i]) * 1;
+        }
+        return ans;
+    }
+};
+/*
+Method 2:双指针
+其实就是动态维护了前后缀和 使空间复杂度为O(1)
+要明白雨水的面积是怎么算的
+*/
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+    }
+};
+
+/*
+Method 3:monotone stack
+*/
 class Solution {    
 public:
     int trap(std::vector<int> height) {

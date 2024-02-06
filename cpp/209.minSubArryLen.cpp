@@ -1,29 +1,7 @@
-/*
-Given an array of positive integers nums and a positive integer target, return the minimal length of a
-subarray
-whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 
- 
-
-Example 1:
-
-Input: target = 7, nums = [2,3,1,2,4,3]
-Output: 2
-Explanation: The subarray [4,3] has the minimal length under the problem constraint.
-
-Example 2:
-
-Input: target = 4, nums = [1,4,4]
-Output: 1
-
-Example 3:
-
-Input: target = 11, nums = [1,1,1,1,1,1,1,1]
-Output: 0
-
-*/
 #include <iostream>
 #include <vector>
+using namespace std;
 class Solution {
     public:
         int minSubArrayLen(int target,std::vector<int>& nums) {
@@ -46,15 +24,25 @@ class Solution {
             return ret;
         }
 };
-int main()
-{
-    std::vector<int> nums;
-    nums.push_back(2);
-    nums.push_back(3);
-    nums.push_back(1);
-    nums.push_back(2);
-    nums.push_back(4);
-    nums.push_back(3);
-    Solution t;
-    std::cout << t.minSubArrayLen(7,nums) << std::endl;
-}
+/*
+review 2024.2.6
+*/
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int sum = 0;
+        int n = nums.size();
+        int ret = n+1;
+        int r = 0;
+        int l = 0;
+        while (r < n) {
+            sum += nums[r];
+            while (sum >= target) {
+                ret = min(ret,r-l+1);
+                sum -= nums[l++];
+            }
+            r++;
+        }
+        return ret == n+1?0:ret;
+    }
+};
