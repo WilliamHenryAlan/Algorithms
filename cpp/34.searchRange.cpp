@@ -2,6 +2,42 @@
 #include <vector>
 using namespace std;
 
+/*
+review 2024.2.7
+*/
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int l = lower_bound(nums,target);
+        if (l == nums.size() || nums[l] != target) return {-1,-1};
+        int r = upper_bound(nums,target);
+        return {l,r};
+    }
+    int lower_bound(vector<int>& nums,int target) {
+        int l = 0,r = nums.size();
+        while (l < r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] < target) l = m + 1;
+            else r = m;
+        }
+        return l;
+    }
+    int upper_bound(vector<int>& nums,int target) {
+        int l = 0,r = nums.size();
+        while (l < r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] > target) {
+                r = m;
+            } else {
+                l = m + 1;
+            }
+        }
+        return l-1;
+    }
+};
+
+
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
