@@ -77,3 +77,22 @@ public:
         return n/10 == x || n == x;
     }
 };
+
+/*
+review 2024 2.10
+*/
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;    //负数不可能是回文数
+        if (x >= 0 && x <= 9) return true;  //[0,9]都是回文数
+        if (x % 10 == 0) return false;
+        int temp = 0;
+        while (temp < x) {  
+            int digit = x % 10; //取低位
+            x /= 10;            //移除低位
+            temp = temp * 10 + digit;   //累加+反转
+        }
+        return temp == x || temp / 10 == x;
+    }
+};
