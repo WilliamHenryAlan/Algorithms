@@ -3,51 +3,6 @@
 #include <vector>
 using namespace std;
 
-class Solution {
-public:
-    vector<vector<int>> combine(int n, int k) {
-        vector<vector<int>> ans;
-        vector<int> path;
-        function<void(int)> dfs = [&](int i) {
-            int d = k - path.size(); // 还要选 d 个数
-            if (d == 0) {
-                ans.emplace_back(path);
-                return;
-            }
-            for (int j = i; j >= d; --j) {
-                path.push_back(j);
-                dfs(j - 1);
-                path.pop_back();
-            }
-        };
-        dfs(n);
-        return ans;
-    }
-};
-
-class Solution {
-public:
-    vector<vector<int>> combine(int n, int k) {
-        vector<vector<int>> ans;
-        vector<int> path;
-        function<void(int)> dfs = [&](int i) {
-            int d = k - path.size(); // 还要选 d 个数
-            if (d == 0) {
-                ans.emplace_back(path);
-                return;
-            }
-            // 不选 i
-            if (i > d) dfs(i - 1);
-            // 选 i
-            path.push_back(i);
-            dfs(i - 1);
-            path.pop_back();
-        };
-        dfs(n);
-        return ans;
-    }
-};
-
 /*
 review 2024.1.29
 1.举例给定 n = 4 k = 3 则[1,2,3,4]可能的情况：
@@ -142,5 +97,54 @@ public:
             backtracking(startIndex+1,n,k,path,res);
             path.pop_back();
         }
+    }
+};
+
+/*
+other
+*/
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> path;
+        function<void(int)> dfs = [&](int i) {
+            int d = k - path.size(); // 还要选 d 个数
+            if (d == 0) {
+                ans.emplace_back(path);
+                return;
+            }
+            for (int j = i; j >= d; --j) {
+                path.push_back(j);
+                dfs(j - 1);
+                path.pop_back();
+            }
+        };
+        dfs(n);
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> path;
+        function<void(int)> dfs = [&](int i) {
+            int d = k - path.size(); // 还要选 d 个数
+            if (d == 0) {
+                ans.emplace_back(path);
+                return;
+            }
+            // 不选 i
+            if (i > d) dfs(i - 1);
+            // 选 i
+            path.push_back(i);
+            dfs(i - 1);
+            path.pop_back();
+        };
+        dfs(n);
+        return ans;
     }
 };

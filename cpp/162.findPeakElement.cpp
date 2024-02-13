@@ -4,7 +4,7 @@
 #include <unordered_map>
 using namespace std;
 /*
-
+二分查找分区间
 */
 class Solution {
 public:
