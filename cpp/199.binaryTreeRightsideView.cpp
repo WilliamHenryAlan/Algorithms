@@ -19,6 +19,7 @@
 #include<iostream>
 #include <vector>
 #include <queue>
+using namespace std;
   struct TreeNode {
       int val;
       TreeNode *left;
@@ -55,5 +56,28 @@ public:
             }
         }
         return ret;
+    }
+};
+/*
+review 2024.2.14
+*/
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        std::queue<TreeNode*> q;
+        if (!root) return {};
+        q.push(root);
+        std::vector<int> ans;
+        while (!q.empty()) {
+            int size = q.size();
+            while (size--) {
+                TreeNode* temp = q.front();
+                q.pop();
+                if (size == 0) ans.push_back(temp->val);
+                if (temp->left != nullptr) q.push(temp->left);
+                if (temp->right != nullptr) q.push(temp->right);
+            }
+        }
+        return ans;
     }
 };

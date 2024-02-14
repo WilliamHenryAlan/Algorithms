@@ -5,6 +5,34 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
+
+"""
+review 2024.2.14
+"""
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+        l_depth = self.maxDepth(root.left)
+        r_depth = self.maxDepth(root.right)
+        return max(l_depth,r_depth) + 1
+    
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        ans = 0
+        def f(root,cnt):
+            if root is None:
+                return
+            cnt += 1
+            nonlocal ans
+            ans = max(ans,cnt)
+            f(root.left,cnt)
+            f(root.right,cnt)
+        f(root,0)
+        return ans
+
 """
 review 2024.2.3
 
