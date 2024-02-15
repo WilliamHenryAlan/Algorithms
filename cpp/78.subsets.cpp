@@ -1,6 +1,31 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int> &nums) {
+        vector<vector<int>> ans;
+        vector<int> path;
+        int n = nums.size();
+        function<void(int)> dfs = [&](int i) {
+            if (i == n) {
+                ans.emplace_back(path);
+                return;
+            }
+            // 不选 nums[i]
+            dfs(i + 1);
+            // 选 nums[i]
+            path.push_back(nums[i]);
+            dfs(i + 1);
+            path.pop_back(); // 恢复现场
+        };
+        dfs(0);
+        return ans;
+    }
+};
+
+
 /*
  Method1: backtrack
 每一个node都是子集

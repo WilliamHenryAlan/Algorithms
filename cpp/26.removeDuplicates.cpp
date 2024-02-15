@@ -1,3 +1,21 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+
+/*
+review 2024.2.15
+*/
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int i = 0;
+        for (int j = 0;j < nums.size();j++) {
+            if (nums[j] != nums[i]) nums[++i] = nums[j];
+        }
+        return i+1;
+    }
+};
+
 /*
 2023.12.20
 */
@@ -14,9 +32,7 @@ solution:
 5.总结快指针无论哪种情况都要迭代 只有快指针找到了不同的值 慢指针才迭代
 6.因为慢指针及之前都是更新的数组 所以数组的长度为i+1
 */
-#include <vector>
-#include <iostream>
-using namespace std;
+
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {

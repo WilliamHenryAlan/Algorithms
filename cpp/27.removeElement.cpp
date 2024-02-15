@@ -1,3 +1,20 @@
+#include <iostream>
+#include <vector>
+
+/*
+review 2024.2.15
+*/
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int i = 0;
+        for (int j = 0;j < nums.size();j++) {
+            if (nums[j] != val) nums[i++] = nums[j];
+        }
+        return i;
+    }
+};
 /*
 2023.12.20
 */
@@ -14,8 +31,7 @@ solution：
 3.loop每次迭代fast 当不是待删除元素时才迭代slow
 4.slow指针从0开始计数更新的数组 就是新数组的长度
 */
-#include <iostream>
-#include <vector>
+
 class Solution {
 public:
     int removeElement(std::vector<int>& nums, int val) {
@@ -70,25 +86,3 @@ int main()
     for (int out:vi)
         cout << " " << out;
 }
-
-
-//VersionB
-// class Solution {
-// public:
-//     int removeElement(vector<int>& nums, int val) {
-//         int len=nums.size();
-//         for (int i=0;i<len;)
-//         {
-//             if (nums[i]==val)
-//             {
-//                 for (int j = i; j < len; j++)
-//                 {
-//                     nums[j]=nums[j+1];
-//                 }
-//                 len--;
-//             }
-//             else i++;
-//         }
-//         return len;
-//     }
-// };

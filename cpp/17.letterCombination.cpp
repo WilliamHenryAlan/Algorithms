@@ -1,6 +1,39 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+/*
+review 2024.2.15
+
+1.枚举 digits[i] - '0'、枚举 digits[i+1] - '0' 、枚举 digits[i+2] - '0' 
+i = [0,digits.size()]
+需要枚举digits.size()个
+*/
+
+class Solution {
+public:
+    vector<string> MAPPING={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    string path;
+    vector<string> ans;
+    vector<string> letterCombinations(string digits) {
+        if (digits.size() == 0) return {}; //如果不加 当size = 0时 执行递归第一个if 会把空str加入ans 再返回
+        dfs(0,digits);
+        return ans;
+    }
+    void dfs(int index,string& digits) {
+        if (path.size() == digits.size()) {
+            ans.push_back(path);
+            return ;
+        }
+        int digit = digits[index] - '0';    //给我们的是string 需要stoi
+        string str = MAPPING[digit];
+        for (int i = 0;i < str.size();i++) {
+            path.push_back(str[i]); //path += str[i];
+            dfs(index+1,digits);
+            path.pop_back();    //path.resize(path.size()-1);
+        }
+    }
+};
+
 
 class Solution {
 public:
