@@ -2,51 +2,41 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
 /*
-list中存在重复元素的 组合问题
-
+组合问题 
+每个数取一次 有重复元素 取sum == target
+1.sort()
+2.
 */
 class Solution {
 public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
-        int sum = 0;
-        vector<int> path;
-        vector<bool> used(candidates.size(),false);
-        vector<vector<int>> ans;
-        backtracking(candidates,target,sum,0,path,used,ans);
+    vector<vector<int>> ans;
+    vector<int> path;
+    int sum = 0;
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        vector<bool> used(nums.size(),false);
+        dfs(nums,target,0,used);
         return ans;
     }
-    void backtracking(vector<int>& candidates,
-                        int target,
-                        int& sum,
-                        int start,
-                        vector<int>& path,
-                        vector<bool>& used,
-                        vector<vector<int>>& ans
-                        ) {
-        if (sum > target) {
-            return ;
-        }
+    void dfs(vector<int>& nums,int target,int start,vector<bool>& used) {
+        if (sum > target) return ;
         if (sum == target) {
             ans.push_back(path);
             return ;
         }
-        // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
-        // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
-        // 要对同一树层使用过的元素进行跳过
-        for (;start < candidates.size();start++) {
-            if (start != 0 && candidates[start] == candidates[start-1] && used[start] == false) {
-                continue ;
+
+        for (int i = start;i < nums.size();i++) {
+            if (i > 0 && nums[i] == nums[i-1]&& used[i-1] == false) {
+                continue;
             }
-            path.push_back(candidates[start]);
-            sum += candidates[start];
-            used[start] = true;
-            backtracking(candidates,target,sum,start,path,used,ans);
-            sum -= candidates[start];
-            used[start] = false;
+            path.push_back(nums[i]);
+            used[i] = true;
+            sum += nums[i];
+            dfs(nums,target,i+1,used);
             path.pop_back();
+            used[i] = false;
+            sum -= nums[i];
         }
     }
 };

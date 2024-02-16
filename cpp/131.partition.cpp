@@ -1,9 +1,15 @@
 #include<iostream>
 #include <vector>
+#include <string>
 using namespace std;
 /*
 subset子集问题
+读清题意
+s = "aab"
+return vector<vector<string>> = [["a","a","b"],["aa","b"]]
 */
+
+
 class Solution {
 public:
     vector<vector<string>> ans;
@@ -35,3 +41,9 @@ public:
         return true;
     }
 };
+
+int main() {
+    string str = "aab";
+    Solution A;
+    A.partition(str);
+}
