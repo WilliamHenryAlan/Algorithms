@@ -25,5 +25,27 @@ public:
     }
 };
 /*
-
+Method 2:hash
 */
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        unordered_map<int,int> mp;
+        int cnt = 0;
+        int preSum = 0;
+        mp[0] = 1;
+        for (int val:nums) {
+            //preSum为左闭右闭当前元素的前缀和
+            preSum += val;
+            //如果找到了 说明有区间存在 和两数之和中遍历过程中找nums - target是一个道理
+            if (mp.find(preSum - k) != mp.end()) {
+                //加上出现的次数
+                cnt += mp[preSum - k];
+            }
+            //不管是否找到 都插入mp中
+            mp[preSum]++;
+        }
+        return cnt;
+    }
+};
