@@ -1,67 +1,47 @@
-/*
-给你一个字符串 s ，请你反转字符串中 单词 的顺序。
 
-单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
-
-返回 单词 顺序颠倒且 单词 之间用单个空格连接的结果字符串。
-
-注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。
-
-
-*/
-
-/*
-1.这道题要解决两个问题 1.去除多余空格
-                  2.要把单词反转
-2.反转单词 可以通过反转整个字符串之后 再进行单个word的反转 通过这种方式可以达到反转单词的目的 leetcode 反转字符串
-3.去除多余空格想到 leetcode去除数组元素 先删去多余空格 再添加一个空格
-4.具体实现：
-
-5.最后slow会指向最后一个单词后的一个位置 所以return slow 就是新字符串的size
-
-*/
 #include <iostream>
+#include <vector>
+using namespace std;
+/*
+Method 1:模拟
+1.去除首位空格
+2.逆序遍历 找出每个单词
+
+tips:
+substr的用法 第一个参数为起始位置 第二个参数为长度
+*/
 
 class Solution {
 public:
-    void reverseStr(std::string& s,int begin,int end) {
-        while (begin < end) {
-            std::swap(s[begin++],s[end--]);
+    string reverseWords(string s) {
+        //预处理首位空格
+        int i = 0,j = s.size() - 1;
+        while (s[i] == ' ') i++;       
+        while (s[j] == ' ') j--;
+        //substr第一个参数为起始位置 第二个参数为长度
+        string str = s.substr(i,j + 1 - i);
+        //逆序分割单词反转
+        string ret = "";
+        int fast = str.size() - 1,slow = fast;
+        while (fast >= 0) {
+            while (fast >= 0 && str[fast] != ' ') fast--;   //fast寻找空格
+            ret += str.substr(fast + 1,slow - fast) + " ";  //找到单词
+            while (fast >= 0 && str[fast] == ' ') fast--;   //寻找下一个单词
+            slow = fast;    //重置slow
         }
-    }
-    void removeExtraSpaces(std::string& s) {
-        int slow = 0,fast = 0;
-        int len = s.size();
-        for (;fast < len;fast++) {
-            if (s[fast] != ' ') 
-            {
-                if (slow != 0) s[slow++] = ' ';
-                while (fast < len and s[fast] != ' ') {
-                    s[slow++] = s[fast++];
-                }
-            }
-        }
-        s.resize(slow);
-    }
-    std::string reverseWords(std::string s) {
-        removeExtraSpaces(s);
-        reverseStr(s,0,s.size()-1);
-        int i = 0,j = 0;
-        for (;j < s.size();j++) {
-            if (s[j] == ' ') {
-                reverseStr(s,i,j-1);
-                j++;
-                i = j;
-            }
-        }
-        reverseStr(s,i,j-1);
-        return s;
+        ret.pop_back(); //去除末尾的空格
+        return ret;
     }
 };
+/*
+想要时间复杂度达到O(1)
+1.先reverse整个string
+2.分割单词 单个reverse
+*/
+
 int main() {
-    std::string s = "t";
+    std::string s = "     hello               ";
     Solution a;
-    std::cout << s.size() << std::endl;
-    a.reverseStr(s,0,s.size()-1);
-    std::cout << s << std::endl;
+    
+    std::cout << a.reverseWords(s) << std::endl;
 }
