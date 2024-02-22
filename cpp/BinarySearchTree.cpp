@@ -1,7 +1,7 @@
 /*
-prompt:
-this指针是常量指针 不可改
+二叉搜索树
 */
+
 #include <iostream>
 #include <vector>
 struct TNode {

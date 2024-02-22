@@ -43,6 +43,32 @@ public:
     }
 };
 /*
+review 2024.2.22
+*/
+
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int l_depth = 0,r_depth = 0;
+        TreeNode* l = root,* r = root;
+        while (l->left) {
+            l = l->left;
+            l_depth++;
+        }
+        while (r->right) {
+            r = r->right;
+            r_depth++;
+        }
+        if (l_depth == r_depth) {
+            return (2 << l_depth) - 1; //完全二叉树总会触发一次 因为左右子树必然有一颗是满二叉树 可以用2^n - 1计算
+        }
+        return countNodes(root->left) + countNodes(root->right) + 1;
+    }
+};
+
+
+/*
 solution:
 当成普通二叉树进行求解 采用后序遍历计算Nodes
 */
@@ -56,5 +82,13 @@ public:
         int leftNums = countNodes(root->left);  //left 左子树的Nodes
         int rightNums = countNodes(root->right);//right 右子树的Nodes
         return leftNums+rightNums+1;    //左子树+右子树的Nodes加上根节点的数量1
+    }
+};
+//精简版
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if (!root) return 0;
+        return countNodes(root->left) + countNodes(root->right) + 1;
     }
 };
