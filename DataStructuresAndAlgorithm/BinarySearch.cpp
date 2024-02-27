@@ -1,64 +1,98 @@
 /*
 二分思想
+二分思想的本质是二段性 二分查找为其中的一种用法
+
+时间复杂度：n个数 n, n/2, n/4, n/8...n/2^k => O(logN)
+局限性：1.需要有序 但是无序情况下也可以用二分找区间
+       2.需要能够随机访问 链式存储没可以用跳表
 */
 #include <iostream>
 #include <vector>
 using namespace std;
-/*
-时间复杂度：n个数 n, n/2, n/4, n/8...n/2^k => O(logN)
-局限性：1.需要有序 但是无序情况下也可以用二分找区间
-       2.需要能够随机访问 链式存储没可以用跳表
-tips:
-1.二分查找必须在数组有序的前提下
-2.对于边界条件的处理 要记住循环不变量
-*/
 
-int lower_bound(const std::vector<int>& nums, int target) {
-    if (nums.size() == 0) return -1;
-    int left = 0;int right = nums.size();   //[)
-
-    while (left < right) {
-        int mid = (left+right)/2;
-        if (nums[mid] < target) {
-            left = mid + 1;     //左闭右开区间 [mid+1,right)
-        } else {
-            right = mid;        //[left,mid)
-        }
-    }
-    return left;    //return left或者right都行 left == right 为循环终止条件
-    /*
-    考虑边界情况 如果所有元素都小于target left = right = nums.size()
-                如果所有元素都大于target right = left = 0
-    */
-}
-int upper_bound (const std::vector<int>& nums,int target) {
-    int l = 0,r = nums.size();
-    while (l < r) {
-        int mid = (l+r)/2;
-        if (nums[mid] > target) {   //找右界 [left,mid)
-            r = mid;
-        }else {
-            l = mid + 1;    //[mid+1,right)
-        }
-    }
-    return l-1;     //因为右侧是开区间 所以-1
-}
-
+//找到 >= target的最小值
+int lower_bound1(const vector<int>& nums,int target);
+//找到 >= target的最小值
+int lower_bound2(const std::vector<int>& nums, int target);
+//找 > target的最小值
+int upper_bound1(const std::vector<int>& nums,int target);
+int upper_bound2(const std::vector<int>& nums,int target);
 int binarySearch(const std::vector<int>& vi,const int& target);
 void print(const std::vector<int>& vi);
+
 int main() {
-    //std::vector<int> array{1,2,4,6,7};
     std::vector<int> array;
     array.push_back(1);
     array.push_back(2);
+    array.push_back(2);
+    array.push_back(2);
+    array.push_back(4);
     array.push_back(4);
     array.push_back(6);
     array.push_back(7);
     print(array);
-    std::cout << "find index = " << binarySearch(array,7) << std::endl;
+    cout << "func lower_bound() = " << distance(array.begin(),lower_bound(array.begin(),array.end(),3)) << endl;
+    cout << "func lower_bound() = " << lower_bound2(array,3) << endl;
+    cout << "func lower_bound() = " << distance(array.begin(),upper_bound(array.begin(),array.end(),5)) << endl;
+    cout << "func lower_bound() = " << upper_bound1(array,5) << endl;
+
 }
-
-
+/*
+    我们不关心区间内数组的情况 而是可以确定区间外数组的情况
+*/
+int lower_bound1(const vector<int>& nums,int target) {    
+    int l = 0,r = nums.size();//左闭右闭区间   循环条件要写为l <= r因为l = r的时候是有意义的
+    while (l <= r) { //循环结束之后 r一定在l的左边
+        int m = l + (r - l) / 2;//防止溢出
+        if (nums[m] < target) l = m + 1;//l左边的数组严格小于target
+        else r = m - 1; //右边的数组严格大于等于target
+    }
+    return l;   //r + 1
+}
+//找到 >= target的最小值
+int lower_bound2(const std::vector<int>& nums, int target) {
+    if (nums.size() == 0) return -1;
+    int len = nums.size();
+    int l = 0,r = len;  //左闭右开区间
+    while (l < r) {     //循环退出的时候left = right
+        int mid = l + (r - l) / 2;  //防止溢出
+        if (nums[mid] >= target) {  //说明[mid,right)严格大于等于target
+            r = mid;
+        }else {
+            l = mid + 1;
+        }
+    }
+    return r;
+}
+//找 > target的最小值
+int upper_bound1(const std::vector<int>& nums,int target) {
+    if (nums.size() == 0) return -1;
+    int len = nums.size();
+    int l = 0,r = len - 1;//[]
+    while (l <= r) {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] > target) {
+            l = mid + 1;
+        }else {
+            r = mid;
+        }
+    }
+    return r;
+}
+int upper_bound2(const std::vector<int>& nums,int target) {
+    if (nums.size() == 0) return -1;
+    int len = nums.size();
+    int l = 0,r = len;
+    while (l < r) {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] <= target) {
+            l = mid + 1;
+        }else {
+            r = mid;
+        }
+    }
+    return r;
+}
 int binarySearch(const std::vector<int>& vi,const int& target) {
     int low = 0;
     int high = vi.size()-1;
