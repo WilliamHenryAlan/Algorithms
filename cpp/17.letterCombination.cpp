@@ -33,7 +33,34 @@ public:
         }
     }
 };
+/*
+review 2024.3.4
+*/
+class Solution {
+public:
+    vector<string> letter = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    string path;
+    vector<string> ans;
+    vector<string> letterCombinations(string digits) {
+        if (digits.size() == 0) return {};
+        dfs(digits,0);
+        return ans;
+    }
+    void dfs(string digits,int index) {
+        if (path.size() == digits.size()) {
+            ans.push_back(path);
+            return ;
+        }
+        int number = digits[index] - '0';
+        string str = letter[number];
+        for (int i = 0;i < str.size();i++) {
+            path.push_back(str[i]);
+            dfs(digits,index + 1);
+            path.pop_back();
+        }
+    }
 
+};
 
 class Solution {
 public:
