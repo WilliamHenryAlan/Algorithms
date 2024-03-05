@@ -46,20 +46,22 @@ public:
     }
 };
 /*
-如果在nums1中原地遍历 会造成数据丢失的情况 但是nums1中末尾的0其实无所谓
-所以可以考虑 从后向前遍历
+如果在nums1中原地遍历 会造成数据丢失的情况 但是nums1中末尾的0其实无所谓 所以可以考虑 从后向前遍历
+            循环条件可以换为k >= 0
+            因为要把两个nums都遍历完
+            如果nums1先先遍历完 那么i >= 0就会不满足 从而执行else 只会遍历第二个nums
+            如果nums2先遍历完 那么j < 0将会满足 执行if中的语句 从而达到只遍历第一个nums
 优化内存之后：
 */
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        for (int i = m-1,j = n-1,k = m+n-1;i >= 0 || j >= 0;) { //k >= 0
+        for (int k = m + n - 1,i = m - 1,j = n - 1;i >= 0 || j >= 0;k--) {
             if (j < 0 || i >= 0 && nums1[i] >= nums2[j]) {
                 nums1[k] = nums1[i--];
             }else {
                 nums1[k] = nums2[j--];
             }
-            k--;
         }
     }
 };

@@ -52,3 +52,34 @@ public:
         
     }
 };
+
+/*
+review 2024.3.5
+迭代+递归
+*/
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr,* cur = head;
+        while (cur) {
+            ListNode* next = cur->next; //存储nextNode
+            cur->next = prev;   //reverseNode
+            prev = cur;
+            cur = next; //iterate curNode
+        }
+        return prev;
+    }
+};
+class Solution {
+public:
+    ListNode* recursion(ListNode* cur,ListNode* prev) {
+        if (!cur) return prev;
+        ListNode* temp = cur->next;
+        cur->next = prev;
+        return recursion(temp,cur);
+    }
+    ListNode* reverseList(ListNode* head) {
+        return recursion(head,nullptr);
+    }
+};

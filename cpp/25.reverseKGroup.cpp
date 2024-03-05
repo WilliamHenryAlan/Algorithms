@@ -19,8 +19,6 @@ head -> 1 -> 2 -> 3 -> 4 -> nullptr
 tips：
 1.链表的问题画图
 */
-
-
 class Solution {
 public:
     //return endnode 
