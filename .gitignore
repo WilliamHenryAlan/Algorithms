@@ -2,7 +2,7 @@
 *.o
 *.out
 *.exe
-
+.*
 # 忽略IDE/编辑器生成的文件和目录
 .vscode/
 .venv/
