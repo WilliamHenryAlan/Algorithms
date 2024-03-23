@@ -23,7 +23,7 @@ public:
             if (hashtable.find(temp) != hashtable.end()) {
                 return {hashtable[temp],i};
             }
-            hashtable[temp] = i;
+            hashtable[nums[i]] = i;
         }
         return {};
     }
