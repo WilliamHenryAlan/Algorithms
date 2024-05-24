@@ -5,6 +5,7 @@ using namespace std;
 
 /*
 多了障碍物 相比62.不同路径1
+
 说明dp公式需要有前提 当有障碍时
 */
 
@@ -14,8 +15,8 @@ public:
         int r = obstacleGrid.size();
         int c = obstacleGrid[0].size();
         if (obstacleGrid[0][0] == 1 || obstacleGrid[r-1][c-1] == 1) return 0;
-        vector<vector<int>> dp(r, vector<int>(c, 0));
-        for (int i = 0;i < r && obstacleGrid[i][0] == 0;i++) dp[i][0] = 1;
+        vector<vector<int>> dp(r, vector<int>(c, 0)); //全部初始化为0
+        for (int i = 0;i < r && obstacleGrid[i][0] == 0;i++) dp[i][0] = 1; //如果在dp[i][0] || dp[0][j] 遇到障碍物 之后就应该为0
         for (int j = 0;j < c && obstacleGrid[0][j] == 0;j++) dp[0][j] = 1;
         for (int i = 1;i < r;i++) {
             for (int j = 1;j < c;j++) {
