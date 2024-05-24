@@ -16,7 +16,7 @@ if [ $? -ne 0 ]; then
     echo "Commit failed!"
     exit 1
 else
-    echo "Commit successful!"
+    echo " Commit successful!"
 fi
 
 # # 推送到远程仓库
