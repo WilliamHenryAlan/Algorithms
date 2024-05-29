@@ -34,3 +34,21 @@ public:
  * NumArray* obj = new NumArray(nums);
  * int param_1 = obj->sumRange(left,right);
  */
+
+/*
+review 2024.5.29
+class NumArray {
+public:
+    vector<int> prefixSum;
+    NumArray(vector<int>& nums) {
+        prefixSum.resize(nums.size() + 1);
+        for (int i = 1;i < prefixSum.size();++i) {
+            prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        return prefixSum[right + 1] - prefixSum[left];
+    }
+};
+*/
