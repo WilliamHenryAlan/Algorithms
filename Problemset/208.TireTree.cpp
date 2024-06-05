@@ -10,40 +10,56 @@ struct TreeNode {
 #include <string>
 using namespace std;
 
+struct TireNode {
+    bool isEnd;     //tirenode不显式存储value 而是通过next的下标隐式存储
+    TireNode* next[26];
+    TireNode() : isEnd(false) {     //构造函数
+        for (int i = 0;i < 26;i++) {
+            next[i] = nullptr;
+        }
+    }
+};
 class Trie {
 private:
-    vector<Trie*> children;
-    bool isEnd;
+    TireNode* root;     //root
 public:
-    Trie() : children(26,nullptr),isEnd(false){}    //初始化rootnode
-    
+    Trie() {
+        root = new TireNode(); 
+    }
     void insert(string word) {
-        Trie* temp = this;  //指向rootNode
+        TireNode* temp = root;
         for (char ch:word) {
-            if (temp->children[ch - 'a'] == nullptr) {
-                temp->children[ch - 'a'] = new Trie();
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) {
+                temp->next[index] = new TireNode();
             }
-            temp = temp->children[ch - 'a'];    //无论之前TrieTree中是否存在字符 都要迭代temp
+            temp = temp->next[index];
         }
-        temp->isEnd = true; //遍历结束 把isEnd置1
+        temp->isEnd = true;
     }
     
     bool search(string word) {
-        Trie* temp = this;
+        TireNode* temp = root;
         for (char ch:word) {
-            if (temp->children[ch - 'a'] == nullptr) return false;  //说明没找到 false
-            temp = temp->children[ch - 'a'];
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) {
+                return false;
+            }
+            temp = temp->next[index];
         }
         return temp->isEnd;
     }
     
     bool startsWith(string prefix) {
-        Trie* temp = this;
+        TireNode* temp = root;
         for (char ch:prefix) {
-            if (temp->children[ch - 'a'] == nullptr) return false;  //说明没找到 false
-            temp = temp->children[ch - 'a'];
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) {
+                return false;
+            }
+            temp = temp->next[index];
         }
-        return true;
+        return true;     
     }
 };
 
@@ -54,3 +70,44 @@ public:
  * bool param_2 = obj->search(word);
  * bool param_3 = obj->startsWith(prefix);
  */
+
+
+
+// class Trie {
+// private:
+//     vector<Trie*> children;
+//     bool isEnd;
+// public:
+//     Trie() : children(26,nullptr),isEnd(false){
+
+//     }    //初始化rootnode
+    
+//     void insert(string word) {
+//         Trie* temp = this;  //指向rootNode
+//         for (char ch:word) {
+//             if (temp->children[ch - 'a'] == nullptr) {
+//                 temp->children[ch - 'a'] = new Trie();
+//             }
+//             temp = temp->children[ch - 'a'];    //无论之前TrieTree中是否存在字符 都要迭代temp
+//         }
+//         temp->isEnd = true; //遍历结束 把isEnd置1
+//     }
+    
+//     bool search(string word) {
+//         Trie* temp = this;
+//         for (char ch:word) {
+//             if (temp->children[ch - 'a'] == nullptr) return false;  //说明没找到 false
+//             temp = temp->children[ch - 'a'];
+//         }
+//         return temp->isEnd;
+//     }
+    
+//     bool startsWith(string prefix) {
+//         Trie* temp = this;
+//         for (char ch:prefix) {
+//             if (temp->children[ch - 'a'] == nullptr) return false;  //说明没找到 false
+//             temp = temp->children[ch - 'a'];
+//         }
+//         return true;
+//     }
+// };
