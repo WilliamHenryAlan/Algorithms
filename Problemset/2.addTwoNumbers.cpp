@@ -28,29 +28,44 @@ public:
     }
 };
 
-
+/*
+review 2024.6.11
+*/
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* a = l1,*b = l2;
-        ListNode* ret = l1;
         int carry = 0;
-        while (a && b) {
-            a->val += b->val + carry;
-            if (a->val >= 10) {
-                a->val %= 10;
-                carry = 1;
+        ListNode* ans = new ListNode();
+        ListNode* temp = ans;
+        while (l1 != nullptr || l2 != nullptr) {
+            int x,y,z;
+            if (!l1) {
+                x = 0;
             }else {
+                x = l1->val;
+                l1 = l1->next;
+            }
+            if (!l2) {
+                y = 0;
+            }else {
+                y = l2->val;
+                l2 = l2->next;
+            }
+            temp->next = new ListNode();
+            temp = temp->next;
+            z = carry + x + y;
+            if (z > 9) {
+                carry = 1;
+                temp->val = z % 10;
+            }else {
+                temp->val = z;
                 carry = 0;
             }
-            a = a->next;
-            b = b->next;
         }
-        return l1;
-        if (!a) {
-
-        }else {
-
+        if (carry == 1) {
+            temp->next = new ListNode();
+            temp->next->val = 1;
         }
+        return ans->next;
     }
 };
