@@ -1,3 +1,26 @@
+/*
+review 2024.6.13
+*/
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        if (++digits.back() != 10) {
+            return digits;
+        }
+        int n = digits.size() - 1;
+        digits.back() = 0;
+        for (int i = digits.size() - 2;i >= 0;i--) {
+            if (++digits[i] == 10) {
+                digits[i] = 0;
+                continue;
+            }else {
+                return digits;
+            }
+        }
+        digits.insert(digits.begin(),1);
+        return digits;
+    }
+};
 /**
  * solution：
  * 将vector转换为int类型会溢出 所以不考虑
