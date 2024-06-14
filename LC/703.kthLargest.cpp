@@ -1,20 +1,28 @@
-#include <map>
+#include <queue>
 #include <iostream>
 using namespace std;
 
 class KthLargest {
-public:
+private:
+    priority_queue<int,great<int>> pq;
     int k;
-    multimap<int,int> data;
-    KthLargest(int _k, vector<int>& _nums) :k(_k) {
-        for (int i = 0;i < _nums.size();i++) {
-            data.insert({_nums[i],i});
+public:
+    KthLargest(int k, vector<int>& nums) {
+        this->k = k;
+        for (int& elem:nums) {
+            add(elem);
         }
     }
     
     int add(int val) {
-        data.push_back(val);
-        sort(data.begin(),data.end());
-        return data[data.size() - k];
+        pq.push(val);
+        if (pq.size() > k) {
+            pq.pop();
+        }
+        return pq.top();
     }
 };
+
+int main () {
+
+}

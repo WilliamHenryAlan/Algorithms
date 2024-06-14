@@ -1,5 +1,27 @@
 #include <iostream>
 /*
+review 2024.6.14
+*/
+class Solution {
+public:
+    int mySqrt(int x) {
+        int l = 1,r = x;
+        int m = r;
+        while (l <= r) {
+            m = l + (r - l) / 2;
+            if (m == x / m) {
+                return m;
+            } else if (m < x / m) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        return r;
+    }
+};
+
+/*
 review 2024.2.26
 */
 class Solution {

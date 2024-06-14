@@ -76,6 +76,44 @@ public:
 };
 
 
+/*
+review 2024.6.14
+*/
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int start = lower_bound1(nums,target);
+        if (start == nums.size() || nums[start] != target) return {-1,-1};
+        int end = lower_bound2(nums,(target + 1)) - 1;
+        return {start,end};
+    }
+    int lower_bound1(vector<int>& nums, int target) {
+        int l = 0,r = nums.size() - 1;
+        int m;
+        while (l <= r) {
+            m = l + (r - l) / 2;
+            if (nums[m] < target) {
+                l = m + 1;
+            }else {
+                r = m - 1;
+            }
+        }
+        return l;
+    }
+    int lower_bound2(vector<int>& nums, int target) {
+        int l = 0,r = nums.size();
+        int m;
+        while (l < r) {
+            m = l + (r - l) / 2;
+            if (nums[m] < target) {
+                l = m + 1;
+            }else {
+                r = m;
+            }
+        }
+        return l;
+    }
+};
 
 
 /*
