@@ -82,3 +82,26 @@ public:
         return recursion(root->left,root->right);
     }
 };
+/*
+review 2024.6.17
+*/
+class Solution {
+public:
+    bool dfs(TreeNode* l,TreeNode* r) {
+        if (l == nullptr && r == nullptr) {
+            return true;
+        }else if (l == nullptr && r != nullptr) {
+            return false;
+        }else if (l != nullptr && r == nullptr) {
+            return false;
+        }else if (l->val != r->val) {
+            return false;
+        }else return dfs(l->left,r->right) && dfs(l->right,r->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if (!root) {
+            return true;
+        }
+        return dfs(root->left,root->right);
+    }
+};

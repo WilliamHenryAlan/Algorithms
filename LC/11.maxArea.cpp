@@ -39,3 +39,23 @@ public:
         return ret;
     }
 };
+/*
+review 2024.6.18
+*/
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int ans = 0,ret = 0;
+        int n = height.size();
+        for (int l = 0,r = n - 1;l < r;) {
+            ans = min(height[l],height[r]) * (r - l);
+            ret = max(ans,ret);
+            if (height[l] >= height[r]) {
+                r--;
+            }else {
+                l++;
+            }
+        }
+        return ret;
+    }
+};

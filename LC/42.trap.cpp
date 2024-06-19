@@ -10,19 +10,19 @@ class Solution {
 public:
     int trap(vector<int>& height) {
         int len = height.size();
-        vector<int> pre_max(len,0);
+        vector<int> pre_max(len);
         pre_max[0] = height[0];
         for (int i = 1;i < len;i++) {
             pre_max[i] = max(height[i],pre_max[i-1]);
         }
-        vector<int> suf_max(len,0);
+        vector<int> suf_max(len);
         suf_max[len-1] = height[len-1];
         for (int i = len-2;i >= 0;i--) {
             suf_max[i] = max(height[i],suf_max[i+1]);
         }
         int ans = 0;
         for (int i = 0;i < len;i++) {
-            ans += (min(pre_max[i],suf_max[i]) - height[i]) * 1;
+            ans += min(pre_max[i],suf_max[i]) - height[i];
         }
         return ans;
     }
