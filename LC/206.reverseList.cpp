@@ -8,22 +8,8 @@ struct ListNode {
       ListNode(int x) : val(x), next(nullptr) {}
       ListNode(int x, ListNode *next) : val(x), next(next) {}
  };
-
-class Solution {
-public:
-    ListNode* reverse(ListNode* cur,ListNode* prev) {
-        if (cur == nullptr) return prev;
-        ListNode* temp = cur->next;
-        cur->next = prev;
-        return reverse(temp,cur);
-    }
-    ListNode* reverseList(ListNode* head) {
-        return reverse(head,nullptr);
-    }
-};
-
 /*
-迭代法：
+迭代法详解：
 head -> 1 -> 2 -> 3 -> 4 -> nullptr
 
 1.设置三个指针 current用于指向当前节点 
@@ -55,9 +41,9 @@ public:
 
 /*
 review 2024.3.5
-迭代+递归
 */
 
+//迭代
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
@@ -71,6 +57,7 @@ public:
         return prev;
     }
 };
+//递归
 class Solution {
 public:
     ListNode* recursion(ListNode* cur,ListNode* prev) {
@@ -81,5 +68,21 @@ public:
     }
     ListNode* reverseList(ListNode* head) {
         return recursion(head,nullptr);
+    }
+};
+/*
+review 2024.6.20
+*/
+class Solution {
+public:
+    ListNode* reverseList(ListNode* cur) {
+        ListNode* nxt = nullptr,*prev = nullptr;
+        while (cur) {
+            nxt = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = nxt;
+        }
+        return prev;
     }
 };

@@ -1,0 +1,31 @@
+.vscode/
+
+# 忽略所有 .o 文件
+*.o
+
+# 忽略 macOS 生成的文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 备份文件
+*.bak
+*.swp
+
+# 忽略编译器生成的文件
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 忽略构建文件夹
+build/
+dist/
+
+# 忽略临时文件
+*.tmp
+*.temp
+
+# 忽略日志文件
+*.log
+
