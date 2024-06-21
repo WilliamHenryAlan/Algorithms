@@ -57,3 +57,35 @@ public:
         return fake->next;
     }
 };
+
+/*
+2024.6.21
+*/
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* dummy = new ListNode(-1,head);
+        ListNode* x = head;
+        head = dummy;
+        int n = 0;
+        while (x) {
+            n++;
+            x = x->next;
+        }//count list node numeber
+        while (n >= k) {
+            n -= k; //数量不足k个 braak
+            ListNode* cur = head->next,*temp = cur,*prev = nullptr,*nxt = nullptr;
+            for (int i = 0;i < k;i++) {
+                nxt = cur->next;
+                cur->next = prev;
+                prev = cur;
+                cur = nxt;
+            }
+            head->next = prev;
+            temp->next = cur;
+
+            head = temp;//reset 哨兵节点
+        }
+        return dummy->next;
+    }
+};
