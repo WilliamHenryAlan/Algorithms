@@ -130,3 +130,23 @@ public:
         }
     }
 };
+/*
+review 2024.6.24
+*/
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(-1,head);
+        ListNode* end = head;
+        head = dummy;
+        while (n--) {
+            end = end->next;
+        }
+        while (end) {
+            head = head->next;
+            end = end->next;
+        }
+        head->next = head->next->next;
+        return dummy->next;
+    }
+};

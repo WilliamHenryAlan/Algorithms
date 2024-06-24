@@ -81,3 +81,36 @@ public:
         return ans;
     }
 };
+/*
+review 2024.6.24
+*/
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if (!root) {
+            return {};
+        }
+        vector<int> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int n = q.size();
+            while(n--) {
+                TreeNode* temp = q.front();
+                if (n == 0) {
+                    ans.push_back(temp->val);
+                }
+                if (temp) {
+                    if (temp->left) {
+                        q.push(temp->left);
+                    }
+                    if (temp->right) {
+                        q.push(temp->right);
+                    }
+                }
+                q.pop();
+            }
+        }
+        return ans;
+    }
+};

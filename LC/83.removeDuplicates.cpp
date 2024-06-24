@@ -41,28 +41,68 @@ public:
         return head;
     }
 };
+// /*
+// review 2024.2.16
+// tips:因为已经排序 所以可以用数组去重的思想
+//     缺点是 进行了assignment 当val过大不适用
+// */
+// class Solution {
+// public:
+//     ListNode* deleteDuplicates(ListNode* head) {
+//         if (!head) return nullptr;
+//         ListNode* former = head, *latter = head;
+//         while (former != nullptr) {
+//             if (former->val != latter->val) {
+//                 latter = latter->next;
+//                 latter->val = former->val;
+//             }
+//             former = former->next;
+//         }
+//         latter->next = nullptr;
+//         return head;
+//     }
+// };
 /*
-review 2024.2.16
-tips:因为已经排序 所以可以用数组去重的思想
-    缺点是 进行了assignment 当val过大不适用
+2024.6.24
+method 1 根据删除重复数组的思路
+method 2 逐个删除node
 */
+//method 1
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if (!head) return nullptr;
-        ListNode* former = head, *latter = head;
-        while (former != nullptr) {
-            if (former->val != latter->val) {
-                latter = latter->next;
-                latter->val = former->val;
-            }
-            former = former->next;
+        if (!head) {
+            return head;
         }
-        latter->next = nullptr;
+        ListNode* i = head;
+        for (ListNode* j = i;j;j = j->next) {
+            if (j->val != i->val) {
+                i->next = j;
+                i = j;
+            }
+        }
+        i->next = nullptr;
         return head;
     }
 };
-
+//method 2
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head) {
+            return head;
+        }
+        ListNode* cur = head;
+        while (cur->next) {
+            if (cur->next->val == cur->val) {
+                cur->next = cur->next->next;
+            }else {
+                cur = cur->next;
+            }
+        }
+        return head;
+    }
+};
 /*
 可以只遍历到最后一个node 而不遍历整个list
 */

@@ -75,3 +75,36 @@ public:
         return ret;
     }
 };
+/*
+review 2024.6.24
+*/
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if (!root) {
+            return {};
+        }
+        vector<vector<int>> ret;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int n = q.size();
+            vector<int> ans;
+            while(n--) {
+                TreeNode* temp = q.front();
+                if (temp) {
+                    ans.push_back(temp->val);
+                    if (temp->left) {
+                        q.push(temp->left);
+                    }
+                    if (temp->right) {
+                        q.push(temp->right);
+                    }
+                }
+                q.pop();
+            }
+            ret.push_back(ans);
+        }
+        return ret;
+    }
+};
