@@ -59,8 +59,36 @@ public:
             path.pop_back();
         }
     }
-
 };
+
+/*
+review 2024.6.26
+*/
+class Solution {
+    vector<string> letters = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    string path;
+    vector<string> ans;
+public:
+    void dfs(int index,string& digits) {
+        if (index == digits.size()) {
+            ans.push_back(path);
+            return ;
+        }
+        int num = digits[index] - '0';
+        string str = letters[num];
+        for (int i = 0;i < str.size();i++) {
+            path.push_back(str[i]);
+            dfs(index + 1,digits);
+            path.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if (digits.size() == 0) return {};
+        dfs(0,digits);
+        return ans;
+    }
+};
+
 
 class Solution {
 public:
@@ -73,7 +101,7 @@ public:
         backtracking(0,digits,path,ans);
         return ans;
     }
-    void backtracking(int index,//和之前的startIndex不一样 之前的用于去重 现在是用于len个集合的组合
+    void backtracking(int index,
                         const string& digits,    
                         string& path,
                         vector<string>& ans) {

@@ -37,7 +37,7 @@ KMP：O(m+n)
 using namespace std;
 
 
-
+int bruteForce(const std::string& pattern)
 
 int main() {
     std::string mainString = "mississippi";
@@ -48,23 +48,3 @@ int main() {
     int ret = KMP(mainString,subString,next);
     std::cout << "return index = " << ret << std::endl;
 }
-
-//O(n)求next 
-void getNext
-
-//O(n^2)求next
-void getNext(std::vector<int>& next,string& pattern) {
-    int n = pattern.size();
-    next.assign(n + 1,0);
-    //next[0] = 0,next[1] = 0 pattern为空或者只包含一个字符时 最长公共前缀为0
-    for (int i = 2;i <= n;i++) {
-        string temp = pattern.substr(0,i);
-        for (int suffix_position = i - 1;suffix_position >= 1;suffix_position--) {
-            if (temp.substr(0,suffix_position) == temp.substr(i - suffix_position,suffix_position)) {
-                next[i] = suffix_position;
-                break;
-            }
-        }
-    }
-}
-

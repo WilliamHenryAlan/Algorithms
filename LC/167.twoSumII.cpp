@@ -2,26 +2,7 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
-/*
-review 2024.2.16
-*/
-class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        int l = 0;
-        int r = nums.size()-1;
-        while (l < r) {
-            if (nums[l] + nums[r] == target) {
-                return {l+1,r+1};
-            }else if (nums[l] + nums[r] > target) {
-                r--;
-            }else {
-                l++;
-            }
-        }
-        return {};
-    }
-};
+
 
 /*
 Method 1: hashtable
@@ -108,6 +89,27 @@ public:
             } else if (sum > target)
                  r--;
             else {
+                l++;
+            }
+        }
+        return {};
+    }
+};
+
+/*
+review 2024.2.16
+*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int l = 0;
+        int r = nums.size()-1;
+        while (l < r) {
+            if (nums[l] + nums[r] == target) {
+                return {l+1,r+1};
+            }else if (nums[l] + nums[r] > target) {
+                r--;
+            }else {
                 l++;
             }
         }
