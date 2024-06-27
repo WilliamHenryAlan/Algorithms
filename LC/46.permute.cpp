@@ -15,10 +15,10 @@ public:
         }
         for (int i = 0;i < n;++i) {
             if (isUsed[i] == false) {
-                ans.push_back(nums[i]);
+                ans.push_back(nums[i]);//进入node要添加元素
                 isUsed[i] = true;
                 backtracking(nums,n);
-                ans.pop_back();
+                ans.pop_back(); //离开node时要恢复上一个状态
                 isUsed[i] = false;
             }
         }
@@ -30,7 +30,36 @@ public:
         return ret;
     }
 };
-
+/*
+review 2024.6.27
+*/
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int> track;
+        vector<vector<int>> ans;
+        vector<bool> isUsed;
+        function<void(int start)> dfs = [&](int start) {
+            int n = nums.size();
+            isUsed.resize(n,false);
+            if (track.size() == n) {
+                ans.push_back(track);
+                return ;
+            }
+            for (int i = 0;i < n;i++) {
+                if (!isUsed[i]) {
+                    isUsed[i] = true;
+                    track.push_back(nums[i]);
+                    dfs(i + 1);
+                    track.pop_back();
+                    isUsed[i] = false;
+                }
+            }
+        };
+        dfs(0);
+        return ans;
+    }
+};
 // class Solution {
 // public:
 //     vector<vector<int>> permute(vector<int>& nums) {

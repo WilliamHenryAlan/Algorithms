@@ -1,6 +1,34 @@
 #include <iostream>
 using namespace std;
+/*
+一共四种方法层层递进
+1.直接递归 但是时间复杂度为O(2^n)
+2.用hashtable进行保存计算结果 二叉树为二叉链表 时间复杂度为O(n) 但是需要额外的空间
+3.去掉递的过程 预处理前两个元素 进行推
+4.空间优化 进行状态压缩
 
+*/
+//会产生很多冗余计算
+class Solution {
+public:
+    int fib(int n) {
+        if (n < 2) return n;
+        else return fib(n-1)+fib(n-2);
+    }
+};
+//用cache存储算过的fib(n)
+class Solution {
+public:
+    unordered_map<int,int> cache;
+    int fib(int n) {
+        if (n < 2) return n;
+        if (cache.find(n) != cache.end()) {
+            return cache[n];
+        }else {
+            return cache[n] = fib(n-1)+fib(n-2);
+        }
+    }
+};
 /*
 dynamic programming:
 1.确定dp数组的含义:第i项就是斐波那契数列的值
@@ -38,11 +66,3 @@ public:
     }
 };
 
-//recursion
-class Solution {
-public:
-    int fib(int n) {
-        if (n < 2) return n;
-        else return fib(n-1)+fib(n-2);
-    }
-};

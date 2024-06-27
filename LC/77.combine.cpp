@@ -147,3 +147,26 @@ public:
         return ans;
     }
 };
+/*
+review 2024.6.27
+*/
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> path;
+        vector<vector<int>> ans;
+        function <void(int)> dfs = [&](int start) {
+            if (path.size() == k) {
+                ans.push_back(path);
+                return ;
+            }
+            for (int i = start;i <= n;i++) {
+                path.push_back(i);
+                dfs(i + 1);
+                path.pop_back();
+            }
+        };
+        dfs(1);
+        return ans;
+    }
+};
