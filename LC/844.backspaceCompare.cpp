@@ -2,7 +2,24 @@
 #include <vector>
 #include <stack>
 using namespace std;
-
+/*
+review 2024.6.29
+*/
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        stack<char> a,b;
+        for (char ch:s) {
+            if (!a.empty() && ch == '#') a.pop();
+            else if (ch != '#') a.push(ch);
+        }
+        for (char ch:t) {
+            if (!b.empty() && ch == '#') b.pop();
+            else if (ch != '#') b.push(ch);
+        }
+        return a == b;
+    }
+};
 class Solution {
 public:
     bool backspaceCompare(string s, string t) {

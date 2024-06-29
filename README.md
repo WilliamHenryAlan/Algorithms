@@ -68,5 +68,6 @@
 3. 
 
 ### dp
+动态规划实际上就是求最值
 - [509.fib](https://leetcode.cn/problems/fibonacci-number/description/)
 - 
