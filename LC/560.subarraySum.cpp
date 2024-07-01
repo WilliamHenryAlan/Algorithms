@@ -3,6 +3,26 @@
 #include <vector>
 
 using namespace std;
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int ans = 0;
+        int n = nums.size();
+        vector<int> prefixSum(nums.size() + 1,0);
+        for (int i = 0;i < nums.size();i++) {
+            prefixSum[i + 1] = nums[i] + prefixSum[i];
+        }
+        for (int i = 0;i < n;i++) {
+            int sum = 0;
+            for (int j = i;j < n;j++) {
+                if (prefixSum[j + 1] - prefixSum[i] == goal) ans++;
+            }
+        }
+        return ans;
+    }
+};
+
+
 /*
 Method 1:prefixSum
 前缀和嵌套两层for循环求sum == k的子数组 cnt++

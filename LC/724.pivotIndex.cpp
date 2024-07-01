@@ -5,8 +5,6 @@ using namespace std;
 
 /*
 Method 1:
-tips:
-要注意数组越界的情况
 */
 class Solution {
 public:
@@ -14,29 +12,26 @@ public:
         int l = 0;
         int r = accumulate(nums.begin(),nums.end(),0);
         for (int i = 0;i < nums.size();i++) {
-            r -= nums[i];       //开始的时候 i = 0 先减去num[0]再判断 防止数组越界          
+            r -= nums[i];   //第一次进入loop 此时r为所有的总和 l为0 所以先r -= nums[i]或者可以先l += nums[j];
             if (l == r) return i;   
             l += nums[i];
         }
         return -1;
     }
 };
-/*
-错误版本
 class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
-        int l = 0;
-        int r = accumulate(nums.begin()+1,nums.end(),0);
-        for (int i = 0;i < nums.size();i++) {
-            if (l == r) return i;
-            l += nums[i];
-            r -= nums[i+1];             //数组越界
+        int j = 0;
+        int l = 0,r = accumulate(nums.begin(),nums.end(),0);
+        for (;j < nums.size();j++) {
+            l += nums[j];
+            if (l == r) return j;
+            r -= nums[j];
         }
         return -1;
     }
 };
-*/
 
 /*
 Method 2: prefixSum
@@ -60,6 +55,5 @@ public:
         return -1;
     }
 };
-
 
 

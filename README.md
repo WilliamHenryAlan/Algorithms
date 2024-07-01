@@ -70,4 +70,7 @@
 ### dp
 动态规划实际上就是求最值
 - [509.fib](https://leetcode.cn/problems/fibonacci-number/description/)
-- 
+
+### Stack
+1. [2390.removeStars](https://leetcode.cn/problems/removing-stars-from-a-string/)
+2. 

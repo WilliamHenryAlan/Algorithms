@@ -1,5 +1,12 @@
 /*
 前缀和：
+构造前缀和数组需要明白prefixSum[i]的含义 
+1.prefixSum[i] = nums[i - 1] + nums[i - 2] + ... + nums[0]
+2.prefixSum[0] = 0
+3.由1得prefixSum[0]表示nums[0 - 1]是无意义的 只是为了可以统一计算
+
+    nums = [4,2,5,2]
+prefixSum= [0,4,6,11,13]
 */
 #include <iostream>
 #include <vector>
@@ -14,9 +21,14 @@ public:
     */
     PrefixSum(vector<int>& nums) {
         this->preSum.resize(nums.size() + 1,0);
+        //法1
         for (int i = 1;i <= nums.size();i++) {
             preSum[i] = preSum[i - 1] + nums[i - 1];
         }
+        //法2
+        // for (int i = 0;i < preSum.size();i++) {
+        //     prefixSum[i + 1] = prefixSum[i] + nums[i];
+        // }
     }
     /*
     左闭右闭求区间和
