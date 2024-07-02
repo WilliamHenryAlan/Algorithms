@@ -1,13 +1,13 @@
 /*
-二分思想
-二分思想的本质是二段性 二分查找为其中的一种用法
 
-时间复杂度：n个数 n, n/2, n/4, n/8...n/2^k => O(logN)
-局限性：1.需要有序 但是无序情况下也可以用二分找区间
-       2.需要能够随机访问 链式存储没可以用跳表
-
+每次都确定list中一般元素和target的关系
 我们不关心区间内数组的情况 而是可以确定区间外数组的情况
 
+二分思想
+二分思想的本质是二段性 二分查找为其中的一种用法
+时间复杂度：n个数 n, n/2, n/4, n/8...n/2^k => O(logN)
+
+红兰染色法 >= target 蓝色 <target 红色
 >= x 用lower_bound解决
 > >=x+1
 < (>=x) - 1
@@ -38,30 +38,35 @@ int main() {
 
 
 //[]
-int lower_bound1(const vector<int>& nums,int target) {    
-    int l = 0,r = nums.size();// 循环条件要写为l <= r因为l = r的时候是有意义的
-    while (l <= r) { //循环结束之后 r一定在l的左边
-        int m = l + (r - l) / 2;//防止溢出
-        if (nums[m] < target) l = m + 1;//R + 1的区域 >= target
-        else r = m - 1; //L - 1的区域 < target
-    }
-    return l;   //r + 1
-}
- //[)
-int lower_bound2(const std::vector<int>& nums, int target) {
-    if (nums.size() == 0) return -1;
-    int len = nums.size();
-    int l = 0,r = len;
-    while (l < r) {     //循环退出的时候left = right
-        int mid = l + (r - l) / 2;  //防止溢出
-        if (nums[mid] >= target) {  //说明[mid,right)严格大于等于target
-            r = mid;
-        }else {
-            l = mid + 1;
+int lower_bound1(const vector<int>& nums, int target) {
+    if (nums.empty()) return -1; // 检查数组是否为空
+    int l = 0, r = nums.size() - 1;
+    while (l <= r) {
+        int m = l + (r - l) / 2; // 防止溢出
+        if (nums[m] < target) {//red
+            l = m + 1; // m 以及 m 之前的都不可能是解
+        } else {
+            r = m - 1; // m 有可能是解，继续在 l 到 m-1 区间找 blue
         }
     }
-    return r;
+    return l; // 返回第一个不小于 target 的位置，如果都小于 target 则返回 nums.size()
 }
+//[)
+ int lower_bound2(const std::vector<int>& nums, int target) {
+    if (nums.empty()) return -1; // 检查数组是否为空
+    int len = nums.size();
+    int l = 0, r = len;
+    while (l < r) { // 循环退出时 l == r
+        int mid = l + (r - l) / 2; // 防止溢出
+        if (nums[mid] >= target) {
+            r = mid; // [l, mid)
+        } else {
+            l = mid + 1; // [mid + 1, r)
+        }
+    }
+    return l; // 返回第一个不小于 target 的位置
+}
+
 //找 > target的最小值
 int upper_bound1(const std::vector<int>& nums,int target) {
     if (nums.size() == 0) return -1;
@@ -114,7 +119,7 @@ void print(const std::vector<int>& vi) {
     }
     std::cout << std::endl;
 }
-void buildArr(std::vector<int>& vi) {
+void buildArr(std::vector<int>& array) {
     array.push_back(1);
     array.push_back(2);
     array.push_back(4);
