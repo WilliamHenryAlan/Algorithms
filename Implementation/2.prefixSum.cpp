@@ -1,7 +1,6 @@
 /*
 前缀和：
-构造前缀和数组需要明白prefixSum[i]的含义 
-1.prefixSum[i] = nums[i - 1] + nums[i - 2] + ... + nums[0]
+1.构造前缀和数组需要明白prefixSum[i]的含义 prefixSum[i] = nums[i - 1] + nums[i - 2] + ... + nums[0]
 2.prefixSum[0] = 0
 3.由1得prefixSum[0]表示nums[0 - 1]是无意义的 只是为了可以统一计算
 
@@ -12,13 +11,11 @@ prefixSum= [0,4,6,11,13]
 #include <vector>
 using namespace std;
 
+//single dimensional prefix sum
 class PrefixSum {
 public:
     vector<int> preSum;
 public:
-    /*
-    构造前缀和数组
-    */
     PrefixSum(vector<int>& nums) {
         this->preSum.resize(nums.size() + 1,0);
         //法1
@@ -30,13 +27,12 @@ public:
         //     prefixSum[i + 1] = prefixSum[i] + nums[i];
         // }
     }
-    /*
-    左闭右闭求区间和
-    */
+    //左闭右闭求区间和
     int section(int begin,int end) {
         return preSum[end + 1] - preSum[begin];
     }
 };
+//double dimensional prefix sum
 class NumMatrix {
     // 定义：preSum[i][j] 记录 matrix 中子矩阵 [0, 0, i-1, j-1] 的元素和
 public:
@@ -53,7 +49,6 @@ public:
             }
         }
     }
-    
     // 计算子矩阵 [x1, y1, x2, y2] 的元素和
     int sumRegion(int x1, int y1, int x2, int y2) {
         // 目标矩阵之和由四个相邻矩阵运算获得

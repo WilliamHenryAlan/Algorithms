@@ -33,7 +33,7 @@ public:
         int n = nums.size();
         vector<int> prefix(n+1,0);
         for (int i = 1;i <= n;i++) {
-            prefix[i] = prefix[i-1] + nums[i-1];
+            prefix[i] = prefix[i-1] + nums[i-1];//构造前缀和
         }
         int cnt = 0;
         for (int i = 0;i < n;i++) {
