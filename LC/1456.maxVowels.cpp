@@ -55,7 +55,7 @@ public:
         for (int i = 0;i < s.size();i++) {
             if (isVowel(s[i])) ans++;
             if (i < k - 1) continue;//固定窗口 使得0-i为k大小的窗口
-            ret = max(ans,ret);
+            ret = max(ans,ret); //数据正常情况下 上两个个if会完成初始化窗口的任务 此时更新答案 下一个if开始开始循环
             if (isVowel(s[i - k + 1])) ans--;
         }
         return ret;

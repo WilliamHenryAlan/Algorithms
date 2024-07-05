@@ -7,7 +7,7 @@
 二分思想的本质是二段性 二分查找为其中的一种用法
 时间复杂度：n个数 n, n/2, n/4, n/8...n/2^k => O(logN)
 
-红兰染色法 >= target 蓝色 <target 红色
+红蓝染色法 >= target 蓝色 <target 红色
 >= x 用lower_bound解决
 > >=x+1
 < (>=x) - 1
@@ -29,28 +29,30 @@ int binarySearch(const std::vector<int>& vi,const int& target);
 void print(const std::vector<int>& vi);
 
 int main() {
-    std::vector<int> array;buildArr(array);print(array);
-    cout << "std::lower_bound = " << distance(array.begin(),lower_bound(array.begin(),array.end(),3)) << endl;
-    cout << "func lower_bound1 = " << lower_bound1(array,3) << endl;
+    std::vector<int> array;buildArr(array);sort(array.begin(),array.end());print(array);
+    cout << "std::lower_bound = " << distance(array.begin(),lower_bound(array.begin(),array.end(),-1)) << endl;
+    cout << "func lower_bound1 = " << lower_bound1(array,-1) << endl;
     cout << "std::upper_bound = " << distance(array.begin(),upper_bound(array.begin(),array.end(),5)) << endl;
     cout << "func lower_bound2 = " << lower_bound2(array,6) << endl; //lower_bound <=> upper_bound
 }
 
-
-//[]
+/*
+[] 找到第一个>=target的
+l - 1 red
+r + 1 blue
+r + 1 = l
+*/
 int lower_bound1(const vector<int>& nums, int target) {
     if (nums.empty()) return -1; // 检查数组是否为空
     int l = 0, r = nums.size() - 1;
     while (l <= r) {
         int m = l + (r - l) / 2; // 防止溢出
-        if (nums[m] < target) {//red
-            l = m + 1; // m 以及 m 之前的都不可能是解
-        } else {
-            r = m - 1; // m 有可能是解，继续在 l 到 m-1 区间找 blue
-        }
+        if (nums[m] >= target) r = m - 1;
+        else l = m + 1
     }
-    return l; // 返回第一个不小于 target 的位置，如果都小于 target 则返回 nums.size()
+    return l; //如果都小于 target 则返回 nums.size() 如果都大于 target nums[l] != target
 }
+
 //[)
  int lower_bound2(const std::vector<int>& nums, int target) {
     if (nums.empty()) return -1; // 检查数组是否为空

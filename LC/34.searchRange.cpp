@@ -3,6 +3,41 @@
 using namespace std;
 
 /*
+2024.7.5
+*/
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int start = lower_bound1(nums,target);
+        if (start == nums.size() || nums[start] != target) return {-1,-1};
+        int end = lower_bound2(nums,(target + 1)) - 1;
+        return {start,end};
+    }
+    //[] 找到第一个>=target的
+    int lower_bound1(const vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2; // 防止溢出
+            if (nums[m] >= target) r = m - 1;
+            else l = m + 1;
+        }
+        return l; //如果都小于 target 则返回 nums.size() 如果都大于 target nums[l] != target
+    }
+    int lower_bound2(vector<int>& nums, int target) {
+        int l = 0,r = nums.size();
+        int m;
+        while (l < r) {
+            m = l + (r - l) / 2;
+            if (nums[m] >= target) r = m;
+            else l = m + 1;
+        }
+        return l;
+    }
+};
+
+
+/*
 review 2024.2.27
 */
 class Solution {
@@ -173,5 +208,38 @@ public:
             }
         }
         return l;   //l = r+1
+    }
+};
+/*
+2024.7.5
+*/
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int start = lower_bound1(nums,target);
+        if (start == nums.size() || nums[start] != target) return {-1,-1};
+        int end = lower_bound2(nums,(target + 1)) - 1;
+        return {start,end};
+    }
+    //[] 找到第一个>=target的
+    int lower_bound1(const vector<int>& nums, int target) {
+        int l = 0, r = nums.size() - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2; // 防止溢出
+            if (nums[m] >= target) r = m - 1;
+            else l = m + 1;
+        }
+        return l; //如果都小于 target 则返回 nums.size() 如果都大于 target nums[l] != target
+    }
+    int lower_bound2(vector<int>& nums, int target) {
+        int l = 0,r = nums.size();
+        int m;
+        while (l < r) {
+            m = l + (r - l) / 2;
+            if (nums[m] >= target) r = m;
+            else l = m + 1;
+        }
+        return l;
     }
 };
