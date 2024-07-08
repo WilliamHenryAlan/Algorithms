@@ -27,3 +27,44 @@ public:
         return res;
     }
 };
+/*
+2024.7.8
+*/
+/*
+用vector模拟单调栈
+压入的是index
+*/
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size();
+        vector<int> ans(n,0),st;
+        for (int i = 0;i < n;i++) {
+            int x = temperatures[i];
+            while (!st.empty() && x > temperatures[st.back()]) { //找到了之后更高的温度
+                ans[st.back()] = i - st.back();
+                st.pop_back();
+            }
+            st.push_back(i);
+        }
+        return ans;
+    }
+};
+//用栈实现单调栈
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        stack<int> st;
+        vector<int> ans(temperatures.size(),0);
+        for (int i = 0;i < temperatures.size();i++) {
+            int x = temperatures[i];
+            while (!st.empty() && x > temperatures[st.top()]) { //找到了之后更高的温度
+                ans[st.top()] = i - st.top();
+                st.pop();
+            }
+            st.push(i);
+        }
+        return ans;
+    }
+};
+

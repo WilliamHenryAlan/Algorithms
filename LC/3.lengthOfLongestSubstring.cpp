@@ -68,3 +68,23 @@ public:
         return ans;
     }
 };
+/*
+review 2024.7.8
+*/
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int l = 0,r = 0;
+        unordered_set<int> hash;
+        int ret = 0;
+        for (;r < s.size();r++) {
+            while (hash.contains(s[r])) { //c++20
+                hash.erase(s[l++]);
+            }
+            hash.insert(s[r]);
+            ret = max(ret,r - l + 1);
+        }
+        return ret;
+    }
+};
