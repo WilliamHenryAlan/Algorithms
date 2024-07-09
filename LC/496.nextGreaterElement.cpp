@@ -53,3 +53,29 @@ public:
         return nums1;
     }
 };
+
+/*
+1.遍历nums2求出每一个元素的下一个最大元素 并把答案保存在hashtable中
+2.遍历nums1如果hashtable中包含nums1的元素 则说明找到对应的 更新答案
+*/
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> cache;
+        int n = nums2.size();
+        vector<int> st;
+        for (int &val:nums2) {
+            while (!st.empty() && st.back() < val) {
+                cache[st.back()] = val;
+                st.pop_back();
+            }
+            st.push_back(val);
+        }
+        for (int &val:nums1) {
+            if (cache.contains(val)) val = cache[val];
+            else val = -1;
+        }
+        return nums1;
+    }
+};
