@@ -21,3 +21,18 @@ public:
         return ans - 1;//必须删除一个元素
     }
 };
+
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int l = 0,r = 0,ans = 0,k = 1;
+        for (;r < nums.size();r++) {
+            if (nums[r] == 0) k--;
+            while (k < 0) {
+                if (nums[l++] == 0) k++;
+            }
+            ans = max(ans,r - l + 1);
+        }
+        return ans - 1;
+    }
+};
