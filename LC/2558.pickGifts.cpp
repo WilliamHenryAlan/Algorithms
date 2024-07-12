@@ -27,7 +27,23 @@ public:
         return total;
     }
 };
-
-int main() {
-
-}
+/*
+2024.7.12
+*/
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+        priority_queue<int> pq(gifts.begin(),gifts.end());
+        long long ans = 0;
+        while (k--) {
+            int temp = sqrt(pq.top());
+            pq.pop();
+            pq.push(temp);
+        }
+        while (!pq.empty()) {
+            ans += pq.top();
+            pq.pop();
+        }
+        return ans;
+    }
+};
