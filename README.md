@@ -19,6 +19,7 @@
 
 [2379. 得到 K 个黑块的最少涂色次数](https://leetcode.cn/problems/minimum-recolors-to-get-k-consecutive-black-blocks/description/)
 
+[1052. 爱生气的书店老板](https://leetcode.cn/problems/grumpy-bookstore-owner/description/)
 ##### 2.不定长滑动窗口（求最长/最大）
 
 [3. 无重复字符的最长子串](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/)  
@@ -203,15 +204,19 @@
 
 [950. 按递增顺序显示卡牌]()
 
-649. Dota2 参议院
+[649. Dota2 参议院]()
 
 2. 设计
 
-[225. 用队列实现栈]()
-232. 用栈实现队列
-622. 设计循环队列
-641. 设计循环双端队列
-1670. 设计前中后队列 
+[225. 用队列实现栈](https://leetcode.cn/problems/implement-stack-using-queues/description/)
+
+[232. 用栈实现队列](https://leetcode.cn/problems/implement-queue-using-stacks/description/)
+
+[622. 设计循环队列](https://leetcode.cn/problems/design-circular-queue/description/)
+
+[641. 设计循环双端队列]()
+
+[1670. 设计前中后队列 ]()
 
 3. 单调队列（单调双端队列）
 
