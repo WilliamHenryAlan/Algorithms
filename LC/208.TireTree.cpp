@@ -62,14 +62,53 @@ public:
         return true;     
     }
 };
-
-/**
- * Your Trie object will be instantiated and called as such:
- * Trie* obj = new Trie();
- * obj->insert(word);
- * bool param_2 = obj->search(word);
- * bool param_3 = obj->startsWith(prefix);
- */
+/*
+2024.7.16
+*/
+struct TireNode {
+    bool isEnd;
+    TireNode* next[26];
+    TireNode() : isEnd(false) {
+        for (int i = 0;i < 26;i++) next[i] = nullptr;
+    }
+};
+class Trie {
+    TireNode* root;
+public:
+    Trie() : root(new TireNode()) {}
+    
+    void insert(string word) {
+        TireNode* temp = root;
+        for (char ch:word) {
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) {
+                temp->next[index] = new TireNode();
+            }
+            temp = temp->next[index];
+        }
+        temp->isEnd = true;
+    }
+    
+    bool search(string word) {
+        TireNode* temp = root;
+        for (char ch:word) {
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) return false;
+            temp = temp->next[index];
+        }
+        return temp->isEnd;
+    }
+    
+    bool startsWith(string prefix) {
+        TireNode* temp = root;
+        for (char ch:prefix) {
+            int index = ch - 'a';
+            if (temp->next[index] == nullptr) return false;
+            temp = temp->next[index];
+        }
+        return true;
+    }
+};
 
 
 
