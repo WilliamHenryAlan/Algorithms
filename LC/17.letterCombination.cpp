@@ -3,10 +3,6 @@
 using namespace std;
 /*
 review 2024.2.15
-
-1.枚举 digits[i] - '0'、枚举 digits[i+1] - '0' 、枚举 digits[i+2] - '0' 
-i = [0,digits.size()]
-需要枚举digits.size()个
 */
 
 class Solution {
@@ -24,7 +20,7 @@ public:
             ans.push_back(path);
             return ;
         }
-        int digit = digits[index] - '0';    //给我们的是string 需要stoi
+        int digit = digits[index] - '0';    //给我们的是string转化为int 需要stoi 给我们char 转化为int 减去'0'
         string str = MAPPING[digit];
         for (int i = 0;i < str.size();i++) {
             path.push_back(str[i]); //path += str[i];
@@ -116,5 +112,34 @@ public:
             backtracking(index+1,digits,path,ans);  //index+1 下一个数字 进行新一轮的forLoop int i = 0;i < letter.size()
             path.pop_back();
         }
+    }
+};
+
+/*
+2024.7.19
+
+*/
+class Solution {
+public:
+    vector<string> letters = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    string path;
+    vector<string> ans;
+    vector<string> letterCombinations(string digits) {
+        int n = digits.size();
+        if (n == 0) return ans;
+        function<void(int)> dfs = [&](int i) {
+            if (n == i) {
+                ans.push_back(path);
+                return ;
+            }
+            string letter = letters[digits[i] - '0'];
+            for (int j = 0;j < letter.size();j++) {
+                path.push_back(letter[j]);
+                dfs(i + 1);
+                path.pop_back();
+            }
+        };
+        dfs(0);
+        return ans;
     }
 };
