@@ -18,3 +18,24 @@ public:
         return dp[n - 1];
     }
 };
+/*
+2024.7.22
+记忆化搜索
+*/
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        unordered_map<int,int> cache;
+        int ans = 0;
+        function<int(int)> dfs = [&](int n) -> int{
+            if (n < 0) {
+                return 0;
+            }
+            if (cache.contains(n)) return cache[n];
+            ans = max(dfs(n - 1),dfs(n - 2) + nums[n]);
+            cache[n] = ans;
+            return ans;
+        };
+        return dfs(nums.size() - 1);
+    }
+};
