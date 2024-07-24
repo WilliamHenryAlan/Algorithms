@@ -35,6 +35,7 @@ int dp[itemNum][capacity] = {0}; //实际上是求解4个物品 背包容量为8
 vector<int> weight = {0,2,3,4,5};
 vector<int> value = {0,3,4,5,8};
 
+
 int main() {
     memset(dp,0,sizeof(dp));//初始化 不是所有情况都是0
     for (int i = 1;i < itemNum;i++) {   //从[1][1]开始推导
