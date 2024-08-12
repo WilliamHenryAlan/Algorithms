@@ -1,3 +1,4 @@
+
 /*
 给定一个二叉树 root ，返回其最大深度。
 
@@ -95,5 +96,19 @@ public:
             }
         }
         return depth;
+    }
+};
+
+/*
+2024.8.12
+*/
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        function<int(TreeNode*)> dfs = [&](TreeNode* root) {
+            if (root == nullptr) return 0;
+            return max(dfs(root->left),dfs(root->right)) + 1;
+        };
+        return dfs(root);
     }
 };
