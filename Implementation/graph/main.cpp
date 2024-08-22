@@ -1,5 +1,10 @@
 #include "graph.hpp"
 int main() {
     Mgraph M;
-    cout << "none";
+	M.insertVertex("abc");
+	M.insertVertex("abc");
+	M.insertVertex("abc");
+	M.insertVertex("abc");
+	vector<bool> visited(M.vertexNum,false);
+	
 }
