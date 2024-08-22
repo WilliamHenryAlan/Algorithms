@@ -7,14 +7,13 @@
 #include <queue>
 using namespace std;
 
-#define MaxVertexNum 100    //顶点最大数目
 #define vertexType string   //顶点数据类型
 #define NO_EDGE 0           //表示无边
 
 class Mgraph {
 private:
-    vertexType vertex[MaxVertexNum];            //顶点表
-    int edge[MaxVertexNum][MaxVertexNum];       //边表
+    vector<vertexType> vertex;				    //顶点表
+	vector<vector<int>> edge;			        //边表
     int vertexNum,arcNum;                       //顶点数量，边数量
     unordered_map<vertexType,int> vertexIndex;  //顶点索引映射：使用 unordered_map 来管理顶点名称与其在数组中的索引映射。这可以使操作顶点更方便，并提高查找效率。
 public:
@@ -28,15 +27,16 @@ public:
         }
     }
     bool adjacent(const vertexType& x,const vertexType& y)const;                    //判断是否存在边<x,y> or (x,y)
-    vector<vertexType> neighbor(const vertexType& x)const                           //列出与x的邻接边
+    vector<vertexType> neighbor(const vertexType& x)const;                           //列出与x的邻接边
     vertexType firstNeighbor(const vertexType& x)const;                             //return节点x的第一个邻接点
     vertexType nextNeighbor(const vertexType& x,const vertexType& y)const;          //假设y是x的一个邻接点 return节点x除y外的第一个邻接点
     void insertVertex(const vertexType& x);                                         //插入节点x
     void deleteVertex(const vertexType& x);                                         //删除节点x
-    bool addEdge(const vertexType& x,const vertexType& y);                          //添加连接节点x和节点y的边
+    bool addEdge(const vertexType& x,const vertexType& y,int weight = 1);           //添加连接节点x和节点y的边
     bool removeEdge(const vertexType& x,const vertexType& y);                       //移除连接节点x和节点y的边
-    void getEdgeValue(const vertexType& x,const vertexType& y)const;
-    void setEdgeValue(const vertexType& x,const vertexType& y);
+    int getEdgeValue(const vertexType& x,const vertexType& y)const;
+    void setEdgeValue(const vertexType& x,const vertexType& y,int weight = 1);
+	void BFS()const;
 };
 
 class ALGraph {
@@ -53,8 +53,7 @@ private:
         arcNode* first;//第一个指向下一个顶点的指针
     };
     //邻接链表
-    vertexNode adjList[MaxVertexNum];
+    vector<vertexNode> adjList;
     int arcNum,vertexNum;
 };
-void BFS(int start, vector<vector<int>>& adj, vector<bool>& visited);
 #endif

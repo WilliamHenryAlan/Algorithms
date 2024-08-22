@@ -5,6 +5,4 @@ int main() {
 	M.insertVertex("abc");
 	M.insertVertex("abc");
 	M.insertVertex("abc");
-	vector<bool> visited(M.vertexNum,false);
-	
 }
