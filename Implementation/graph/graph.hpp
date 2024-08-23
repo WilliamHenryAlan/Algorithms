@@ -36,7 +36,8 @@ public:
     bool removeEdge(const vertexType& x,const vertexType& y);                       //移除连接节点x和节点y的边
     int getEdgeValue(const vertexType& x,const vertexType& y)const;
     void setEdgeValue(const vertexType& x,const vertexType& y,int weight = 1);
-	void BFS()const;
+	void BFS(vertexType& v,vector<bool>& visited)const;
+	void DFS(vertexType& start,vector<bool>& visited)const;
 };
 
 class ALGraph {

@@ -1,15 +1,24 @@
 #include "graph.hpp"
 
-// void Mgraph::BFS()const {
-// 	vector<bool> visited(vertexNum,false);
-// 	queue<int> q;
-// 	auto f = [&](int start) {
-// 		q.push();
-// 	};
-// 	for (int i = 0;i < vertexNum;i++) {
-// 		if (!visited[i]) f(i);
-// 	}
-// }
+void Mgraph::DFS(vertexType& start,vector<bool>& visited)const {
+
+}
+
+void Mgraph::BFS(vertexType& start,vector<bool>& visited)const {
+	queue<int> q;
+	q.push(vertexIndex[start]);
+	while (!q.empty()) {
+		int v = q.front();
+		q.pop();
+		for (int w = 0;w < vertexNum;w++) {
+			if (edge[v][w] != NO_EDGE && visited[w] == false) {
+				cout << vertex[w] << " ";
+				visited.at(w) = true;
+				q.push(w);
+			}
+		}
+	}
+}
 
 bool Mgraph::adjacent(const vertexType& x,const vertexType& y)const                    //判断是否存在边<x,y> or (x,y)
 {
