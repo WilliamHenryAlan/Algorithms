@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 
@@ -65,6 +64,38 @@ public:
             }
             //不管是否找到 都插入mp中
             mp[preSum]++;
+        }
+        return cnt;
+    }
+};
+/*
+review 2024.8.29
+*/
+
+1.构造前缀和数组需要明白prefixSum[i]的含义 
+    prefixSum[i] = nums[i - 1] + nums[i - 2] + ... + nums[0]
+2.prefixSum[0] = 0
+3.由1得prefixSum[0]表示nums[0 - 1]是无意义的 只是为了可以统一计算
+
+    nums = [4,2,5,2]
+prefixSum= [0,4,6,11,13]
+所以本题中`prefixSum[i]`就是```下标为0 - i的nums的数组和```
+那么`prefixSum[i] - prefixSum[j]`就是```下标为j - i的nums的数组和```
+也就是我们想找的子数组为k的答案
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        vector<int> prefixSum;
+        int n = nums.size();
+        prefixSum.resize(n + 1);
+        prefixSum[0] = 0;
+        int cnt = 0;
+        for (int i = 0;i < n;i++) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i];
+            for (int j = 0;j <= i;j++) {
+                if (prefixSum[i + 1] - k == prefixSum[j]) cnt++;
+            }
         }
         return cnt;
     }
