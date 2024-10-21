@@ -10,6 +10,5 @@ int main() {
 	
 	double maxFloat = std::numeric_limits<float>::max();
     std::cout << "The maximum value for float is: " << maxFloat << std::endl;
-    
     return 0;
 }
