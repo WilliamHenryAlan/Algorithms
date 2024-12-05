@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-#define MAX 1000
 
 void findCommonElementsOptimized(int* arr1, int n1, int* arr2, int n2) {
     int hash[MAX] = {0};
@@ -43,6 +42,9 @@ int main() {
 
     // 查找共有元素
     findCommonElementsOptimized(arr1, n1, arr2, n2);
+   differenceSet (arr1, n1, arr2, n2);
+   differenceSet (arr2, n1, arr1, n2);
+	
 
     return 0;
 }
