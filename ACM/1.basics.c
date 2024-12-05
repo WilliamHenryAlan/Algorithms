@@ -1,7 +1,6 @@
 
-/*
-ACM模式下要处理多组数据 模板：
-*/
+
+//ACM模式下要处理多组数据 模板：
 
 // C language
 while (scanf("%d %d") != EOF) { //EOF是预定义量 = -1 
